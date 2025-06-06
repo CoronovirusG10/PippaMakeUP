@@ -371,9 +371,9 @@ npm run build
 ## 📞 Support & Community
 
 ### Developer Relations
-- 📧 **Email**: developers@pippaoflondon.com
+- 📧 **Email**: hello@pippaoflondon.co.uk
 - 💬 **Discord**: [Pippa Developer Community](https://discord.gg/pippa-dev)
-- 📚 **Documentation**: [docs.pippaoflondon.com](https://docs.pippaoflondon.com)
+- 📚 **Documentation**: [www.pippaoflondon.co.uk](https://www.pippaoflondon.co.uk)
 - 🎯 **API Portal**: Self-serve SDK access and tutorials
 
 ### Enterprise Support
@@ -411,7 +411,11 @@ npm run build
 
 **Built with ❤️ by the Pippa of London Team**
 
-[Website](https://pippaoflondon.com) • [Documentation](https://docs.pippaoflondon.com) • [API Portal](https://developer.pippaoflondon.com) • [Support](mailto:support@pippaoflondon.com)
+[Website](https://www.pippaoflondon.co.uk) • [Contact](mailto:hello@pippaoflondon.co.uk) • [Phone](tel:+441418160317)
+
+**📍 Headquarters**: 7 Shotts Street, Glasgow G33 4JB, United Kingdom  
+**📧 Email**: hello@pippaoflondon.co.uk  
+**📞 Phone**: +44 141 816 0317
 
 [![Follow @PippaOfLondon](https://img.shields.io/twitter/follow/PippaOfLondon?style=social)](https://twitter.com/PippaOfLondon)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Pippa%20of%20London-blue)](https://linkedin.com/company/pippa-of-london)
