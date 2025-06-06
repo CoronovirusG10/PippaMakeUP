@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about Pippa of London's mission to revolutionize beauty through AI-powered inclusive color matching technology.">
+    <title>About Us - Pippa of London</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/website/global.css">
+    <style>
+        /* Page-specific styles */
+        .about-hero {
+            background: linear-gradient(135deg, var(--deep-rose) 0%, var(--primary-gold) 100%);
+            color: var(--white);
+            padding: 140px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .about-hero p {
+            font-size: 1.375rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .mission-content h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 30px;
+            color: var(--deep-rose);
+        }
+
+        .mission-content p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .mission-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: var(--light-gray);
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            background: var(--soft-pink);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--deep-rose);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--medium-gray);
+            margin-top: 8px;
+        }
+
+        .mission-visual {
+            position: relative;
+        }
+
+        .mission-image {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Story Section */
+        .story-section {
+            padding: 100px 0;
+            background: var(--cream);
+        }
+
+        .story-timeline {
+            max-width: 800px;
+            margin: 60px auto 0;
+        }
+
+        .story-item {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 60px;
+            align-items: center;
+        }
+
+        .story-year {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            min-width: 120px;
+        }
+
+        .story-content {
+            flex: 1;
+        }
+
+        .story-content h4 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--deep-rose);
+        }
+
+        .story-content p {
+            line-height: 1.8;
+        }
+
+        /* Values Section */
+        .values-section {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--light-gray);
+            border-radius: 20px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--deep-rose), var(--primary-gold));
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .value-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: var(--soft-pink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+
+        .value-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--charcoal);
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 100px 0;
+            background: var(--light-gray);
+        }
+
+        .team-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .team-member {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .team-avatar {
+            width: 100%;
+            height: 300px;
+            background: var(--soft-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: var(--deep-rose);
+        }
+
+        .team-info {
+            padding: 30px;
+        }
+
+        .team-info h4 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+
+        .team-info .role {
+            color: var(--medium-gray);
+            margin-bottom: 16px;
+        }
+
+        .team-info p {
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* Innovation Section */
+        .innovation-section {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .innovation-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .innovation-card {
+            background: linear-gradient(135deg, var(--soft-pink), var(--cream));
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .innovation-card::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .innovation-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--deep-rose);
+        }
+
+        .innovation-card ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .innovation-card li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .innovation-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--deep-rose);
+            font-weight: 700;
+        }
+
+        /* Partners Section */
+        .partners-section {
+            padding: 80px 0;
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .partners-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .partner-logo {
+            width: 150px;
+            height: 60px;
+            background: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--medium-gray);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .partner-logo:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .mission-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .mission-visual {
+                order: -1;
+            }
+
+            .story-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .team-grid,
+            .values-grid,
+            .innovation-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">Pippa of London</a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="/" class="nav-link">Home</a></li>
+                        <li><a href="/how-it-works.html" class="nav-link">How It Works</a></li>
+                        <li><a href="/catalog/products.html" class="nav-link">Products</a></li>
+                        <li><a href="/about.html" class="nav-link active">About</a></li>
+                    </ul>
+                    <a href="/auth/auth.html" class="nav-cta">Try Now</a>
+                    <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>Revolutionizing Beauty Through Technology</h1>
+            <p>We're on a mission to make finding your perfect shade as simple as taking a selfie, while reducing waste and promoting inclusive beauty for all.</p>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-grid">
+                <div class="mission-content">
+                    <h2>Our Mission</h2>
+                    <p>At Pippa of London, we believe everyone deserves to find their perfect match. Traditional shade matching often fails people with diverse skin tones, leading to disappointment, returns, and waste.</p>
+                    <p>We're changing that with AI technology that truly sees and celebrates every skin tone. Our advanced color matching system uses the inclusive Monk Skin Tone Scale and professional-grade color science to deliver accurate results for everyone.</p>
+                    
+                    <div class="mission-stats">
+                        <div class="stat-card">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Skin Tones Tested</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">98%</span>
+                            <span class="stat-label">Match Accuracy</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">70%</span>
+                            <span class="stat-label">Fewer Returns</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Inclusive</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mission-visual">
+                    <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600&h=700&fit=crop" alt="Diverse beauty representation" class="mission-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Our Story</h2>
+                <p>From frustration to innovation - how Pippa of London was born</p>
+            </div>
+
+            <div class="story-timeline">
+                <div class="story-item">
+                    <div class="story-year">2023</div>
+                    <div class="story-content">
+                        <h4>The Spark</h4>
+                        <p>Our founder experienced yet another wrong shade match at a beauty counter. This sparked the idea: what if AI could solve this universal problem?</p>
+                    </div>
+                </div>
+
+                <div class="story-item">
+                    <div class="story-year">2024</div>
+                    <div class="story-content">
+                        <h4>Research & Development</h4>
+                        <p>We partnered with color scientists and AI experts to develop our proprietary TrueTone Scan™ technology, testing across diverse skin tones.</p>
+                    </div>
+                </div>
+
+                <div class="story-item">
+                    <div class="story-year">2025</div>
+                    <div class="story-content">
+                        <h4>Launch & Beyond</h4>
+                        <p>Today, we're proud to offer the world's most inclusive and accurate AI-powered shade matching, with plans to revolutionize the entire beauty industry.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Our Core Values</h2>
+                <p>The principles that guide everything we do</p>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🌍</div>
+                    <h4>Inclusivity First</h4>
+                    <p>Beauty has no boundaries. Our technology is designed to work beautifully for every skin tone, celebrating diversity in all its forms.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🔬</div>
+                    <h4>Scientific Precision</h4>
+                    <p>We combine cutting-edge AI with proven color science to deliver professional-grade accuracy you can trust.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🌱</div>
+                    <h4>Sustainable Beauty</h4>
+                    <p>By reducing wrong purchases and returns, we're helping create a more sustainable future for beauty.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🔒</div>
+                    <h4>Privacy Protected</h4>
+                    <p>Your data is yours. We use privacy-first design with on-device processing to keep your information secure.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">✨</div>
+                    <h4>Empowering Confidence</h4>
+                    <p>When you find your perfect match, you feel confident. We're here to help everyone discover their ideal shades.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🚀</div>
+                    <h4>Innovation Forward</h4>
+                    <p>We're constantly improving our technology to stay at the forefront of beauty tech innovation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Meet Our Team</h2>
+                <div class="team-intro">
+                    <p>We're a diverse team of beauty enthusiasts, AI experts, and color scientists united by a shared vision of inclusive, technology-driven beauty.</p>
+                </div>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-avatar">👩🏽‍💼</div>
+                    <div class="team-info">
+                        <h4>Dr. Sarah Chen</h4>
+                        <p class="role">Founder & CEO</p>
+                        <p>Former L'Oréal color scientist with a PhD in Computer Vision from MIT.</p>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-avatar">👨🏿‍💻</div>
+                    <div class="team-info">
+                        <h4>Marcus Williams</h4>
+                        <p class="role">CTO</p>
+                        <p>AI expert from Google, specializing in inclusive machine learning models.</p>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-avatar">👩🏻‍🔬</div>
+                    <div class="team-info">
+                        <h4>Emma Rodriguez</h4>
+                        <p class="role">Head of Color Science</p>
+                        <p>20+ years in cosmetic formulation and color matching technology.</p>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-avatar">👨🏾‍🎨</div>
+                    <div class="team-info">
+                        <h4>James Okonkwo</h4>
+                        <p class="role">Creative Director</p>
+                        <p>Award-winning designer passionate about inclusive beauty representation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Section -->
+    <section class="innovation-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Leading Innovation in Beauty Tech</h2>
+                <p>Our commitment to advancing the science of color matching</p>
+            </div>
+
+            <div class="innovation-features">
+                <div class="innovation-card">
+                    <h4>Research & Development</h4>
+                    <p>We invest heavily in R&D to continuously improve our algorithms and expand our capabilities.</p>
+                    <ul>
+                        <li>Active learning from anonymized data</li>
+                        <li>Quarterly model improvements</li>
+                        <li>Collaboration with universities</li>
+                        <li>Open research publications</li>
+                    </ul>
+                </div>
+
+                <div class="innovation-card">
+                    <h4>Industry Partnerships</h4>
+                    <p>Working with beauty brands and retailers to transform the industry together.</p>
+                    <ul>
+                        <li>SDK for brand integration</li>
+                        <li>Retail kiosk solutions</li>
+                        <li>White-label options</li>
+                        <li>ESG impact tracking</li>
+                    </ul>
+                </div>
+
+                <div class="innovation-card">
+                    <h4>Future Roadmap</h4>
+                    <p>Exciting developments on the horizon to enhance your beauty experience.</p>
+                    <ul>
+                        <li>AR virtual try-on</li>
+                        <li>Personalized formulations</li>
+                        <li>Skin health tracking</li>
+                        <li>Global expansion</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+        <div class="container">
+            <h3>Trusted By Industry Leaders</h3>
+            <div class="partners-grid">
+                <div class="partner-logo">Partner 1</div>
+                <div class="partner-logo">Partner 2</div>
+                <div class="partner-logo">Partner 3</div>
+                <div class="partner-logo">Partner 4</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" style="background: linear-gradient(135deg, var(--deep-rose), var(--primary-gold));">
+        <div class="container">
+            <h2>Join the Beauty Revolution</h2>
+            <p>Experience the future of personalized beauty today</p>
+            <button class="btn btn-primary" onclick="window.navigationAPI.startAnalysis()">Find Your Perfect Shade</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Pippa of London</h3>
+                    <p>Revolutionary AI-powered beauty technology for inclusive, accurate shade matching.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                        <a href="#" class="social-link" aria-label="Facebook">👤</a>
+                        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+                        <a href="#" class="social-link" aria-label="YouTube">▶️</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="/how-it-works.html">How It Works</a></li>
+                        <li><a href="/catalog/products.html">Products</a></li>
+                        <li><a href="/about.html">Technology</a></li>
+                        <li><a href="/auth/auth.html">Try Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/contact.html">Help Center</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pippa of London. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/website/navigation.js"></script>
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.stat-card, .value-card, .team-member, .innovation-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Animate stats on scroll
+        const animateValue = (el, start, end, duration) => {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                el.textContent = Math.floor(progress * (end - start) + start) + (el.dataset.suffix || '');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        // Animate stat numbers when visible
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    const value = parseInt(entry.target.textContent);
+                    const suffix = entry.target.textContent.includes('%') ? '%' : 
+                                  entry.target.textContent.includes('+') ? '+' : '';
+                    entry.target.dataset.suffix = suffix;
+                    animateValue(entry.target, 0, value, 2000);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            statObserver.observe(stat);
+        });
+    </script>
+</body>
+</html>

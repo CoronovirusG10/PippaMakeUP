@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Analysis Results - Pippa of London</title>
+    <link rel="stylesheet" href="results.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Preparing your personalized results...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Pippa of London</h1>
+                <span class="tagline">AI-Powered Beauty</span>
+            </div>
+            <nav class="main-nav">
+                <a href="/">Home</a>
+                <a href="/products">Products</a>
+                <a href="/profile" class="active">My Results</a>
+                <button id="logout-btn" class="btn-text">Logout</button>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="results-container">
+        <!-- Analysis Summary Section -->
+        <section id="analysis-summary" class="analysis-summary fade-in">
+            <div class="container">
+                <h2 class="section-title">Your Skin Analysis</h2>
+                
+                <div class="analysis-grid">
+                    <!-- User Photo with Overlay -->
+                    <div class="photo-analysis">
+                        <div class="photo-container">
+                            <img id="user-photo" src="" alt="Your analyzed photo">
+                            <canvas id="skin-tone-overlay"></canvas>
+                            <div class="analysis-points">
+                                <div class="point forehead" data-tooltip="Forehead sample"></div>
+                                <div class="point cheek-left" data-tooltip="Left cheek sample"></div>
+                                <div class="point cheek-right" data-tooltip="Right cheek sample"></div>
+                            </div>
+                        </div>
+                        <button class="btn-secondary retake-photo">
+                            <svg class="icon" viewBox="0 0 24 24" width="16" height="16">
+                                <path d="M12 20v-2a6 6 0 0 0 6-6h2a8 8 0 0 1-8 8zm0-16V2a8 8 0 0 1 8 8h-2a6 6 0 0 0-6-6zm-8 8a8 8 0 0 1 8-8v2a6 6 0 0 0-6 6H4zm8 8a8 8 0 0 1-8-8h2a6 6 0 0 0 6 6v2z"/>
+                            </svg>
+                            Retake Photo
+                        </button>
+                    </div>
+
+                    <!-- Analysis Details -->
+                    <div class="analysis-details">
+                        <div class="tone-info">
+                            <h3>Your Skin Tone</h3>
+                            <div class="tone-display">
+                                <div class="tone-swatch" id="analyzed-tone"></div>
+                                <div class="tone-data">
+                                    <p class="tone-name" id="tone-name">Loading...</p>
+                                    <p class="tone-hex" id="tone-hex">#000000</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Monk Scale Visualization -->
+                        <div class="monk-scale-viz">
+                            <h4>Monk Skin Tone Scale</h4>
+                            <div class="scale-container">
+                                <div class="scale-track">
+                                    <div class="scale-marker" id="monk-marker"></div>
+                                </div>
+                                <div class="scale-labels">
+                                    <span>1</span>
+                                    <span>2</span>
+                                    <span>3</span>
+                                    <span>4</span>
+                                    <span>5</span>
+                                    <span>6</span>
+                                    <span>7</span>
+                                    <span>8</span>
+                                    <span>9</span>
+                                    <span>10</span>
+                                </div>
+                            </div>
+                            <p class="scale-value">Scale Position: <strong id="monk-value">5</strong></p>
+                        </div>
+
+                        <!-- Undertone Indicator -->
+                        <div class="undertone-section">
+                            <h4>Your Undertone</h4>
+                            <div class="undertone-indicators">
+                                <div class="undertone-option cool" data-undertone="cool">
+                                    <div class="undertone-swatch"></div>
+                                    <span>Cool</span>
+                                </div>
+                                <div class="undertone-option neutral" data-undertone="neutral">
+                                    <div class="undertone-swatch"></div>
+                                    <span>Neutral</span>
+                                </div>
+                                <div class="undertone-option warm" data-undertone="warm">
+                                    <div class="undertone-swatch"></div>
+                                    <span>Warm</span>
+                                </div>
+                            </div>
+                            <p class="undertone-description" id="undertone-desc">
+                                Your skin has warm undertones with golden and peachy hues.
+                            </p>
+                        </div>
+
+                        <!-- Confidence Score -->
+                        <div class="confidence-section">
+                            <h4>Analysis Confidence</h4>
+                            <div class="confidence-meter">
+                                <div class="confidence-track">
+                                    <div class="confidence-fill" id="confidence-fill"></div>
+                                </div>
+                                <span class="confidence-value" id="confidence-value">85%</span>
+                            </div>
+                            <details class="how-analyzed">
+                                <summary>How we analyzed this</summary>
+                                <p>Our AI analyzed multiple points on your face, focusing on areas with consistent skin tone. We used advanced color science to determine your undertone and matched it against our comprehensive shade database.</p>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Perfect Matches Section -->
+        <section id="shade-matches" class="shade-matches slide-up">
+            <div class="container">
+                <h2 class="section-title">Perfect Matches</h2>
+                <div class="filter-bar">
+                    <button class="filter-btn active" data-category="all">All Products</button>
+                    <button class="filter-btn" data-category="foundation">Foundation</button>
+                    <button class="filter-btn" data-category="concealer">Concealer</button>
+                    <button class="filter-btn" data-category="lipstick">Lipstick</button>
+                    <button class="filter-btn" data-category="blush">Blush</button>
+                    <button class="filter-btn" data-category="bronzer">Bronzer</button>
+                </div>
+
+                <div class="sort-controls">
+                    <label>Sort by:</label>
+                    <select id="sort-select">
+                        <option value="match">Best Match</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="popularity">Most Popular</option>
+                    </select>
+                </div>
+
+                <div id="product-grid" class="product-grid">
+                    <!-- Products will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Shade Comparison Tool -->
+        <section id="comparison-tool" class="comparison-tool">
+            <div class="container">
+                <h2 class="section-title">Compare Shades</h2>
+                <div class="comparison-interface">
+                    <div class="comparison-slots">
+                        <div class="comparison-slot" id="slot-1">
+                            <div class="slot-placeholder">
+                                <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                                </svg>
+                                <p>Select a shade to compare</p>
+                            </div>
+                        </div>
+                        
+                        <div class="vs-indicator">VS</div>
+                        
+                        <div class="comparison-slot" id="slot-2">
+                            <div class="slot-placeholder">
+                                <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                                </svg>
+                                <p>Select a shade to compare</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comparison-results" id="comparison-results" style="display: none;">
+                        <h3>Comparison Results</h3>
+                        <div class="comparison-metrics">
+                            <div class="metric">
+                                <h4>Color Difference</h4>
+                                <div class="delta-e-viz">
+                                    <div class="delta-bar">
+                                        <div class="delta-fill" id="delta-fill"></div>
+                                    </div>
+                                    <p>ΔE: <span id="delta-value">0</span></p>
+                                </div>
+                            </div>
+                            <div class="metric">
+                                <h4>Undertone Match</h4>
+                                <p id="undertone-match">Both warm undertones ✓</p>
+                            </div>
+                            <div class="metric">
+                                <h4>Recommendation</h4>
+                                <p id="comparison-recommendation">These shades are very similar!</p>
+                            </div>
+                        </div>
+                        <button class="btn-secondary" id="clear-comparison">Clear Comparison</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps Section -->
+        <section id="next-steps" class="next-steps">
+            <div class="container">
+                <h2 class="section-title">What's Next?</h2>
+                <div class="cta-grid">
+                    <div class="cta-card">
+                        <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor">
+                            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                        <h3>Shop Your Matches</h3>
+                        <p>Ready to purchase? View your saved products and complete your order.</p>
+                        <button class="btn-primary">Shop Now</button>
+                    </div>
+                    
+                    <div class="cta-card">
+                        <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                        <h3>View Favorites</h3>
+                        <p>Access all your saved shades and products in one place.</p>
+                        <button class="btn-secondary" id="view-favorites">View Favorites (<span id="fav-count">0</span>)</button>
+                    </div>
+                    
+                    <div class="cta-card">
+                        <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor">
+                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                        </svg>
+                        <h3>Share Results</h3>
+                        <p>Share your color match results with friends or on social media.</p>
+                        <button class="btn-secondary" id="share-results">Share</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Pippa of London. AI-Powered Beauty Technology.</p>
+        </div>
+    </footer>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="modal-body">
+                <!-- Product details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="share-modal" class="modal">
+        <div class="modal-content share-content">
+            <button class="modal-close">&times;</button>
+            <h3>Share Your Results</h3>
+            <div class="share-preview">
+                <canvas id="share-canvas" width="400" height="400"></canvas>
+            </div>
+            <div class="share-buttons">
+                <button class="share-btn instagram" data-platform="instagram">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.44-.645 1.44-1.44-.644-1.44-1.44-1.44z"/>
+                    </svg>
+                    Instagram
+                </button>
+                <button class="share-btn facebook" data-platform="facebook">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    Facebook
+                </button>
+                <button class="share-btn twitter" data-platform="twitter">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                    Twitter
+                </button>
+            </div>
+            <div class="share-link">
+                <input type="text" id="share-link-input" readonly>
+                <button class="btn-secondary" id="copy-link">Copy Link</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Scripts -->
+    <script src="recommendations.js"></script>
+    <script src="favorites.js"></script>
+    <script src="sharing.js"></script>
+    <script src="comparison.js"></script>
+    <script>
+        // Initialize the results page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is authenticated
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
+            if (!currentUser) {
+                window.location.href = '/auth/auth.html';
+                return;
+            }
+
+            // Get analysis results from session or localStorage
+            const analysisResults = JSON.parse(sessionStorage.getItem('currentAnalysis') || localStorage.getItem('lastAnalysis') || 'null');
+            if (!analysisResults) {
+                showToast('No analysis results found. Please analyze a photo first.', 'error');
+                setTimeout(() => {
+                    window.location.href = '/capture/capture.html';
+                }, 2000);
+                return;
+            }
+
+            // Initialize all modules
+            initializeResults(analysisResults);
+            initializeFavorites();
+            initializeSharing();
+            initializeComparison();
+            
+            // Hide loading overlay
+            setTimeout(() => {
+                document.getElementById('loading-overlay').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Main initialization function
+        function initializeResults(analysisData) {
+            // Display user photo
+            const userPhoto = document.getElementById('user-photo');
+            userPhoto.src = analysisData.userPhoto || '/assets/placeholder-face.jpg';
+            
+            // Display skin tone analysis
+            displaySkinToneAnalysis(analysisData.skinTone);
+            
+            // Display confidence score
+            displayConfidenceScore(analysisData.faceDetection.confidence);
+            
+            // Load and display product recommendations
+            loadRecommendations(analysisData);
+            
+            // Set up event listeners
+            setupEventListeners();
+        }
+
+        // Display skin tone analysis details
+        function displaySkinToneAnalysis(skinTone) {
+            // Set tone swatch color
+            const toneSwatch = document.getElementById('analyzed-tone');
+            toneSwatch.style.backgroundColor = skinTone.hex;
+            
+            // Set tone details
+            document.getElementById('tone-name').textContent = getToneName(skinTone.monkScale);
+            document.getElementById('tone-hex').textContent = skinTone.hex;
+            
+            // Position Monk scale marker
+            const monkMarker = document.getElementById('monk-marker');
+            const position = ((skinTone.monkScale - 1) / 9) * 100;
+            monkMarker.style.left = `${position}%`;
+            document.getElementById('monk-value').textContent = skinTone.monkScale;
+            
+            // Highlight undertone
+            document.querySelectorAll('.undertone-option').forEach(option => {
+                option.classList.remove('active');
+                if (option.dataset.undertone === skinTone.undertone) {
+                    option.classList.add('active');
+                }
+            });
+            
+            // Set undertone description
+            const undertoneDescriptions = {
+                cool: 'Your skin has cool undertones with pink and blue hues.',
+                warm: 'Your skin has warm undertones with golden and peachy hues.',
+                neutral: 'Your skin has neutral undertones with a balanced mix of warm and cool hues.'
+            };
+            document.getElementById('undertone-desc').textContent = undertoneDescriptions[skinTone.undertone];
+            
+            // Draw analysis overlay on photo
+            drawAnalysisOverlay(skinTone);
+        }
+
+        // Get descriptive name for Monk scale position
+        function getToneName(monkScale) {
+            const names = [
+                'Very Fair', 'Fair', 'Light', 'Light Medium',
+                'Medium', 'Medium Deep', 'Deep', 'Rich',
+                'Very Rich', 'Deepest'
+            ];
+            return names[monkScale - 1] || 'Medium';
+        }
+
+        // Display confidence score
+        function displayConfidenceScore(confidence) {
+            const percentage = Math.round(confidence * 100);
+            document.getElementById('confidence-value').textContent = `${percentage}%`;
+            document.getElementById('confidence-fill').style.width = `${percentage}%`;
+        }
+
+        // Draw analysis overlay on user photo
+        function drawAnalysisOverlay(skinTone) {
+            const canvas = document.getElementById('skin-tone-overlay');
+            const img = document.getElementById('user-photo');
+            
+            img.onload = function() {
+                canvas.width = img.offsetWidth;
+                canvas.height = img.offsetHeight;
+                
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw semi-transparent overlay showing analyzed areas
+                ctx.fillStyle = `${skinTone.hex}33`; // 20% opacity
+                ctx.strokeStyle = skinTone.hex;
+                ctx.lineWidth = 2;
+                
+                // Draw circles on analysis points
+                const points = document.querySelectorAll('.analysis-points .point');
+                points.forEach(point => {
+                    const rect = point.getBoundingClientRect();
+                    const canvasRect = canvas.getBoundingClientRect();
+                    const x = rect.left - canvasRect.left + rect.width / 2;
+                    const y = rect.top - canvasRect.top + rect.height / 2;
+                    
+                    ctx.beginPath();
+                    ctx.arc(x, y, 20, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.stroke();
+                });
+            };
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Mobile menu toggle
+            document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+                document.querySelector('.main-nav').classList.toggle('active');
+            });
+            
+            // Logout
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                sessionStorage.removeItem('currentUser');
+                window.location.href = '/auth/auth.html';
+            });
+            
+            // Retake photo
+            document.querySelector('.retake-photo').addEventListener('click', function() {
+                window.location.href = '/capture/capture.html';
+            });
+            
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterProducts(this.dataset.category);
+                });
+            });
+            
+            // Sort select
+            document.getElementById('sort-select').addEventListener('change', function() {
+                sortProducts(this.value);
+            });
+            
+            // View favorites
+            document.getElementById('view-favorites').addEventListener('click', function() {
+                showFavoritesModal();
+            });
+            
+            // Share results
+            document.getElementById('share-results').addEventListener('click', function() {
+                document.getElementById('share-modal').classList.add('active');
+                generateSharePreview();
+            });
+            
+            // Modal close buttons
+            document.querySelectorAll('.modal-close').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.modal').classList.remove('active');
+                });
+            });
+            
+            // Click outside modal to close
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Pippa of London</title>
+    <link rel="stylesheet" href="catalog.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <div class="logo">
+                    <h1>Pippa of London</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="products.html" class="active">Products</a></li>
+                    <li><a href="../auth/profile.html">Profile</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="product-detail-main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="products.html">Products</a>
+                <span>/</span>
+                <span id="breadcrumbCategory"></span>
+                <span>/</span>
+                <span id="breadcrumbProduct"></span>
+            </nav>
+
+            <!-- Product Detail Section -->
+            <div class="product-detail-grid">
+                <!-- Product Images -->
+                <div class="product-images">
+                    <div class="main-image">
+                        <img id="mainProductImage" src="" alt="Product Image">
+                    </div>
+                    <div class="image-thumbnails">
+                        <img class="thumbnail active" data-image="main" src="" alt="Main">
+                        <img class="thumbnail" data-image="swatch" src="" alt="Swatch">
+                        <img class="thumbnail" data-image="lifestyle" src="" alt="Lifestyle">
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info">
+                    <h1 id="productName"></h1>
+                    <p class="product-brand">by Pippa of London</p>
+                    
+                    <div class="price-section">
+                        <span class="price">£<span id="productPrice"></span></span>
+                        <span class="vat-info">VAT included</span>
+                    </div>
+
+                    <div class="product-description">
+                        <p id="productDescription"></p>
+                    </div>
+
+                    <!-- Shade Selector -->
+                    <div class="shade-selector">
+                        <h3>Select Your Shade</h3>
+                        <div class="selected-shade-info">
+                            <span>Selected: </span>
+                            <span id="selectedShadeName" class="shade-name">Choose a shade</span>
+                        </div>
+                        
+                        <div id="shadeGrid" class="shade-grid">
+                            <!-- Shades will be dynamically loaded -->
+                        </div>
+
+                        <div class="shade-details hidden" id="shadeDetails">
+                            <h4>Shade Information</h4>
+                            <div class="shade-info-grid">
+                                <div class="info-item">
+                                    <label>Undertone:</label>
+                                    <span id="shadeUndertone"></span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Monk Scale:</label>
+                                    <span id="shadeMonkScale"></span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Coverage:</label>
+                                    <span id="shadeCoverage"></span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Best for:</label>
+                                    <span id="shadeBestFor"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add to Cart Section -->
+                    <div class="purchase-section">
+                        <div class="quantity-selector">
+                            <label>Quantity:</label>
+                            <div class="quantity-controls">
+                                <button id="decreaseQty">-</button>
+                                <input type="number" id="quantity" value="1" min="1" max="10">
+                                <button id="increaseQty">+</button>
+                            </div>
+                        </div>
+
+                        <button id="addToCart" class="add-to-cart-btn" disabled>
+                            Select a Shade
+                        </button>
+
+                        <button id="addToFavorites" class="favorite-btn">
+                            <span class="heart-icon">♡</span>
+                            <span>Add to Favorites</span>
+                        </button>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="product-features">
+                        <h3>Key Features</h3>
+                        <ul id="featuresList" class="features-list">
+                            <!-- Features dynamically loaded -->
+                        </ul>
+                    </div>
+
+                    <!-- Ingredients -->
+                    <details class="ingredients-section">
+                        <summary>Ingredients</summary>
+                        <p id="ingredientsList" class="ingredients-text"></p>
+                    </details>
+
+                    <!-- Skin Types -->
+                    <div class="skin-types">
+                        <h3>Suitable for:</h3>
+                        <div id="skinTypesList" class="skin-type-tags">
+                            <!-- Skin types dynamically loaded -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Similar Shades Section -->
+            <div class="similar-shades-section">
+                <h2>Find Similar Shades</h2>
+                <p>Based on your selected shade, you might also like:</p>
+                <div id="similarShades" class="similar-shades-grid">
+                    <!-- Similar shades will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <div class="related-products-section">
+                <h2>Complete Your Look</h2>
+                <div id="relatedProducts" class="related-products-grid">
+                    <!-- Related products will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Pippa of London. AI-powered beauty for everyone.</p>
+        </div>
+    </footer>
+
+    <!-- Shade Comparison Modal -->
+    <div id="shadeModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Shade Comparison</h2>
+            <div class="comparison-grid">
+                <div class="shade-compare" id="shade1">
+                    <!-- First shade details -->
+                </div>
+                <div class="vs-divider">VS</div>
+                <div class="shade-compare" id="shade2">
+                    <!-- Second shade details -->
+                </div>
+            </div>
+            <div class="delta-e-result">
+                <p>Color Difference (ΔE): <span id="deltaEValue"></span></p>
+                <p class="delta-e-explanation"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="product-data.js"></script>
+    <script src="catalog.js"></script>
+</body>
+</html>

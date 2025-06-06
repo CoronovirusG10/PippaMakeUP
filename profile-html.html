@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Pippa of London</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="auth.css">
+    <style>
+        /* Additional profile-specific styles */
+        .profile-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .profile-header {
+            background: var(--cream);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: 0 2px 8px var(--shadow);
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--soft-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-md);
+            font-size: 2.5rem;
+            color: var(--deep-rose);
+        }
+
+        .profile-name {
+            font-family: var(--font-primary);
+            font-size: 1.875rem;
+            color: var(--charcoal);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .profile-email {
+            color: var(--dark-gray);
+            font-size: 0.875rem;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-lg);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-gold);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--dark-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-sections {
+            display: grid;
+            gap: var(--spacing-lg);
+        }
+
+        .profile-section {
+            background: var(--cream);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .section-title {
+            font-family: var(--font-primary);
+            font-size: 1.25rem;
+            color: var(--charcoal);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .edit-button {
+            background: none;
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            padding: 6px 16px;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .edit-button:hover {
+            background: var(--primary-gold);
+            color: white;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            color: var(--dark-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            color: var(--charcoal);
+            font-weight: 500;
+        }
+
+        .skin-concern-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+
+        .concern-tag {
+            background: var(--soft-pink);
+            color: var(--deep-rose);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        .analysis-history {
+            display: grid;
+            gap: var(--spacing-md);
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md);
+            background: var(--light-gray);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .history-item:hover {
+            background: var(--medium-gray);
+        }
+
+        .history-thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius);
+            background: var(--soft-pink);
+            flex-shrink: 0;
+        }
+
+        .history-details {
+            flex: 1;
+        }
+
+        .history-date {
+            font-size: 0.875rem;
+            color: var(--dark-gray);
+        }
+
+        .history-result {
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .view-results-btn {
+            color: var(--primary-gold);
+            font-size: 0.875rem;
+            text-decoration: none;
+        }
+
+        .view-results-btn:hover {
+            text-decoration: underline;
+        }
+
+        .logout-section {
+            text-align: center;
+            margin-top: var(--spacing-xl);
+        }
+
+        .logout-button {
+            background: none;
+            border: 1px solid var(--error);
+            color: var(--error);
+            padding: 12px 32px;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .logout-button:hover {
+            background: var(--error);
+            color: white;
+        }
+
+        /* Edit mode styles */
+        .edit-mode .form-input {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .edit-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+
+        .save-button {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .cancel-button {
+            background: var(--medium-gray);
+            color: var(--charcoal);
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Navigation -->
+    <nav class="profile-nav" style="background: var(--cream); padding: 1rem 2rem; box-shadow: 0 2px 4px var(--shadow);">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;">
+            <h1 style="font-size: 1.5rem; margin: 0;">Pippa of London</h1>
+            <div style="display: flex; gap: 2rem; align-items: center;">
+                <a href="/" style="color: var(--charcoal); text-decoration: none;">Home</a>
+                <a href="/analyze" style="color: var(--charcoal); text-decoration: none;">New Analysis</a>
+                <a href="/products" style="color: var(--charcoal); text-decoration: none;">Products</a>
+                <a href="/profile.html" style="color: var(--primary-gold); text-decoration: none; font-weight: 500;">Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Container -->
+    <div class="profile-container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-avatar" id="profile-avatar">
+                <!-- Will be populated with user initials -->
+            </div>
+            <h2 class="profile-name" id="profile-name">Loading...</h2>
+            <p class="profile-email" id="profile-email">Loading...</p>
+            
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="analysis-count">0</div>
+                    <div class="stat-label">Analyses</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="favorites-count">0</div>
+                    <div class="stat-label">Favorites</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="member-days">0</div>
+                    <div class="stat-label">Days Member</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Sections -->
+        <div class="profile-sections">
+            <!-- Personal Information -->
+            <div class="profile-section">
+                <h3 class="section-title">
+                    Personal Information
+                    <button class="edit-button" id="edit-personal">Edit</button>
+                </h3>
+                <div id="personal-info" class="info-grid">
+                    <!-- Will be populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Beauty Profile -->
+            <div class="profile-section">
+                <h3 class="section-title">
+                    Beauty Profile
+                    <button class="edit-button" id="edit-beauty">Edit</button>
+                </h3>
+                <div id="beauty-profile">
+                    <div class="info-item">
+                        <span class="info-label">Age Range</span>
+                        <span class="info-value" id="age-range-display">--</span>
+                    </div>
+                    <div class="info-item" style="margin-top: 1rem;">
+                        <span class="info-label">Skin Concerns</span>
+                        <div class="skin-concern-tags" id="skin-concerns-display">
+                            <!-- Will be populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis History -->
+            <div class="profile-section">
+                <h3 class="section-title">Recent Analyses</h3>
+                <div id="analysis-history" class="analysis-history">
+                    <p style="color: var(--dark-gray); text-align: center;">No analyses yet. <a href="/analyze" style="color: var(--primary-gold);">Start your first analysis</a></p>
+                </div>
+            </div>
+
+            <!-- Account Settings -->
+            <div class="profile-section">
+                <h3 class="section-title">Account Settings</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Member Since</span>
+                        <span class="info-value" id="member-since">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Last Login</span>
+                        <span class="info-value" id="last-login">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Email Preferences</span>
+                        <label class="checkbox-label" style="margin-top: 0.5rem;">
+                            <input type="checkbox" id="marketing-consent" class="checkbox-input">
+                            <span class="checkbox-text">Receive makeup tips and offers</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logout Section -->
+        <div class="logout-section">
+            <button class="logout-button" id="logout-button">Sign Out</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="validation.js"></script>
+    <script src="session.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Profile page specific logic
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            const currentUser = getCurrentUser();
+            if (!currentUser) {
+                window.location.href = '/auth/auth.html';
+                return;
+            }
+
+            // Populate profile data
+            populateProfile(currentUser);
+
+            // Setup event listeners
+            document.getElementById('edit-personal').addEventListener('click', () => toggleEditMode('personal'));
+            document.getElementById('edit-beauty').addEventListener('click', () => toggleEditMode('beauty'));
+            document.getElementById('logout-button').addEventListener('click', handleLogout);
+            document.getElementById('marketing-consent').addEventListener('change', updateMarketingConsent);
+        });
+
+        function populateProfile(user) {
+            // Profile header
+            const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+            document.getElementById('profile-avatar').textContent = initials;
+            document.getElementById('profile-name').textContent = user.name;
+            document.getElementById('profile-email').textContent = user.email;
+
+            // Stats
+            document.getElementById('analysis-count').textContent = user.analysisHistory.length;
+            document.getElementById('favorites-count').textContent = user.favorites.length;
+            
+            const memberDays = Math.floor((Date.now() - new Date(user.createdAt).getTime()) / (1000 * 60 * 60 * 24));
+            document.getElementById('member-days').textContent = memberDays;
+
+            // Personal info
+            const personalInfo = document.getElementById('personal-info');
+            personalInfo.innerHTML = `
+                <div class="info-item">
+                    <span class="info-label">Full Name</span>
+                    <span class="info-value" id="name-display">${user.name}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email Address</span>
+                    <span class="info-value" id="email-display">${user.email}</span>
+                </div>
+            `;
+
+            // Beauty profile
+            document.getElementById('age-range-display').textContent = user.ageRange;
+            
+            const skinConcernsDisplay = document.getElementById('skin-concerns-display');
+            skinConcernsDisplay.innerHTML = user.skinConcerns.map(concern => 
+                `<span class="concern-tag">${concern.charAt(0).toUpperCase() + concern.slice(1)}</span>`
+            ).join('');
+
+            // Account settings
+            document.getElementById('member-since').textContent = new Date(user.createdAt).toLocaleDateString();
+            document.getElementById('last-login').textContent = new Date(user.lastLogin).toLocaleDateString();
+            document.getElementById('marketing-consent').checked = user.marketingConsent;
+
+            // Analysis history
+            if (user.analysisHistory.length > 0) {
+                const historyContainer = document.getElementById('analysis-history');
+                historyContainer.innerHTML = user.analysisHistory.slice(0, 5).map(analysis => `
+                    <div class="history-item">
+                        <div class="history-thumbnail"></div>
+                        <div class="history-details">
+                            <div class="history-date">${new Date(analysis.date).toLocaleDateString()}</div>
+                            <div class="history-result">Skin Tone: ${analysis.result}</div>
+                        </div>
+                        <a href="/results/${analysis.id}" class="view-results-btn">View Results →</a>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleEditMode(section) {
+            // Implementation for edit mode
+            showToast('Edit functionality coming soon!', 'info');
+        }
+
+        function updateMarketingConsent(e) {
+            const consent = e.target.checked;
+            updateProfile({ marketingConsent: consent });
+            showToast('Email preferences updated', 'success');
+        }
+
+        function handleLogout() {
+            if (confirm('Are you sure you want to sign out?')) {
+                logoutUser();
+            }
+        }
+    </script>
+</body>
+</html>

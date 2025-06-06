@@ -1,0 +1,432 @@
+/* Animations and Transitions - Pippa of London */
+
+/* Fade In Animation */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide Up Animation */
+.slide-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 0.8s ease-out 0.3s forwards;
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stagger Animation for Grid Items */
+.product-grid .product-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: staggerIn 0.5s ease-out forwards;
+}
+
+.product-grid .product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-grid .product-card:nth-child(2) { animation-delay: 0.15s; }
+.product-grid .product-card:nth-child(3) { animation-delay: 0.2s; }
+.product-grid .product-card:nth-child(4) { animation-delay: 0.25s; }
+.product-grid .product-card:nth-child(5) { animation-delay: 0.3s; }
+.product-grid .product-card:nth-child(6) { animation-delay: 0.35s; }
+
+@keyframes staggerIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scale In Animation */
+.scale-in {
+    transform: scale(0.8);
+    opacity: 0;
+    animation: scaleIn 0.4s ease-out forwards;
+}
+
+@keyframes scaleIn {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Pulse Animation for Interactive Elements */
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(233, 30, 99, 0.7);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(233, 30, 99, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(233, 30, 99, 0);
+    }
+}
+
+/* Shimmer Effect for Loading States */
+.shimmer {
+    background: linear-gradient(
+        to right,
+        #f0f0f0 0%,
+        #e0e0e0 20%,
+        #f0f0f0 40%,
+        #f0f0f0 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 1.5s linear infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Bounce Animation */
+.bounce {
+    animation: bounce 0.5s ease-out;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Shake Animation for Errors */
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-10px);
+    }
+    75% {
+        transform: translateX(10px);
+    }
+}
+
+/* Color Transition for Swatches */
+.color-transition {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.color-transition:hover {
+    transform: scale(1.1);
+}
+
+/* Progress Bar Animation */
+.progress-fill {
+    animation: progressFill 1s ease-out forwards;
+}
+
+@keyframes progressFill {
+    from {
+        width: 0;
+    }
+}
+
+/* Modal Animations */
+.modal.active .modal-content {
+    animation: modalIn 0.3s ease-out;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Heart Icon Animation */
+.heart-pulse {
+    animation: heartPulse 0.6s ease-out;
+}
+
+@keyframes heartPulse {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.3);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Loading Dots */
+.loading-dots {
+    display: inline-flex;
+    gap: 4px;
+}
+
+.loading-dots span {
+    width: 8px;
+    height: 8px;
+    background: currentColor;
+    border-radius: 50%;
+    animation: loadingDot 1.4s ease-in-out infinite;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: 0s; }
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes loadingDot {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Skeleton Loading Animation */
+.skeleton {
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: skeletonWave 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonWave {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Hover Effects */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.hover-glow {
+    transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(233, 30, 99, 0.3);
+}
+
+/* Smooth State Transitions */
+.state-transition {
+    transition: all 0.3s ease;
+}
+
+/* Analysis Point Animations */
+.analysis-points .point {
+    animation: analysisPulse 3s ease-in-out infinite;
+}
+
+.analysis-points .point:nth-child(1) { animation-delay: 0s; }
+.analysis-points .point:nth-child(2) { animation-delay: 1s; }
+.analysis-points .point:nth-child(3) { animation-delay: 2s; }
+
+@keyframes analysisPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
+
+/* Confidence Meter Animation */
+.confidence-fill {
+    position: relative;
+    overflow: hidden;
+}
+
+.confidence-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    animation: confidenceShine 2s ease-in-out infinite;
+}
+
+@keyframes confidenceShine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Comparison Slot Hover */
+.comparison-slot {
+    transition: all 0.3s ease;
+}
+
+.comparison-slot:hover {
+    border-color: var(--primary-pink);
+    background-color: rgba(233, 30, 99, 0.05);
+}
+
+/* CTA Card Animations */
+.cta-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--primary-pink), var(--primary-gold));
+    border-radius: inherit;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.cta-card:hover::before {
+    opacity: 0.1;
+}
+
+/* Button Press Effect */
+.btn-primary:active,
+.btn-secondary:active {
+    transform: scale(0.98);
+}
+
+/* Filter Button Active State */
+.filter-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.filter-btn:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Scroll-triggered Animations */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s ease-out;
+}
+
+/* Mobile Touch Feedback */
+@media (hover: none) {
+    .hover-lift:active {
+        transform: scale(0.98);
+    }
+    
+    .btn-primary:active,
+    .btn-secondary:active {
+        transform: scale(0.95);
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

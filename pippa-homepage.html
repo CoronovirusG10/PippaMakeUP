@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find your perfect makeup shade with AI precision. Revolutionary color-matching technology that analyzes your unique skin tone and undertones.">
+    <meta property="og:title" content="Pippa of London - AI Color Matching">
+    <meta property="og:description" content="Revolutionary color-matching technology for perfect makeup shades">
+    <meta property="og:image" content="/assets/images/og-image.jpg">
+    <title>Pippa of London - Find Your Perfect Shade with AI Precision</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <style>
+        /* Global CSS Variables */
+        :root {
+            --primary-gold: #D4A574;
+            --soft-pink: #F8E8E0;
+            --deep-rose: #8B4B6B;
+            --cream: #FDFCF8;
+            --charcoal: #2C2C2C;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --medium-gray: #9B9B9B;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--charcoal);
+            line-height: 1.6;
+            background-color: var(--cream);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 20px var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--deep-rose);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            color: var(--primary-gold);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--charcoal);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gold);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--deep-rose);
+            color: var(--white);
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(139, 75, 107, 0.3);
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, 0.4);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .hamburger {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--charcoal);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--charcoal);
+            transition: var(--transition);
+        }
+
+        .hamburger::before {
+            top: -8px;
+        }
+
+        .hamburger::after {
+            top: 8px;
+        }
+
+        /* Hero Section */
+        #hero {
+            margin-top: 88px;
+            min-height: calc(100vh - 88px);
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--cream) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--primary-gold) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(10deg); }
+        }
+
+        .hero-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(36px, 5vw, 56px);
+            color: var(--charcoal);
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            color: var(--medium-gray);
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            min-height: 50px;
+            min-width: 160px;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .btn-primary {
+            background: var(--deep-rose);
+            color: var(--white);
+            box-shadow: 0 4px 20px rgba(139, 75, 107, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(212, 165, 116, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--deep-rose);
+            border: 2px solid var(--deep-rose);
+        }
+
+        .btn-secondary:hover {
+            background: var(--deep-rose);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        .hero-visual img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px var(--shadow);
+        }
+
+        .floating-badge {
+            position: absolute;
+            background: var(--white);
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px var(--shadow);
+            font-weight: 500;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .badge-accuracy {
+            top: 20px;
+            right: -20px;
+            color: var(--deep-rose);
+        }
+
+        .badge-inclusive {
+            bottom: 40px;
+            left: -20px;
+            color: var(--primary-gold);
+        }
+
+        /* How It Works Section */
+        #how-it-works {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            color: var(--charcoal);
+            margin-bottom: 20px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--medium-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--light-gray);
+            border-radius: 20px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow);
+            background: var(--soft-pink);
+        }
+
+        .step-number {
+            font-size: 60px;
+            color: var(--primary-gold);
+            opacity: 0.3;
+            font-weight: 700;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+
+        .step-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .step h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--charcoal);
+        }
+
+        .step p {
+            color: var(--medium-gray);
+            line-height: 1.8;
+        }
+
+        /* Technology Section */
+        #technology {
+            padding: 100px 0;
+            background: linear-gradient(to bottom, var(--cream), var(--white));
+        }
+
+        .tech-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .feature:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow);
+        }
+
+        .feature h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--deep-rose);
+        }
+
+        .feature p {
+            color: var(--medium-gray);
+            line-height: 1.8;
+        }
+
+        /* Benefits Section */
+        #benefits {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .benefit {
+            display: flex;
+            align-items: start;
+            gap: 20px;
+        }
+
+        .benefit-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--soft-pink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 24px;
+        }
+
+        .benefit-content h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--charcoal);
+        }
+
+        .benefit-content p {
+            color: var(--medium-gray);
+            line-height: 1.6;
+        }
+
+        /* Social Proof Section */
+        #social-proof {
+            padding: 100px 0;
+            background: var(--soft-pink);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--deep-rose);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            color: var(--charcoal);
+        }
+
+        /* CTA Section */
+        #cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--deep-rose), var(--primary-gold));
+            text-align: center;
+            color: var(--white);
+        }
+
+        #cta h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            margin-bottom: 20px;
+        }
+
+        #cta p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        #cta .btn-primary {
+            background: var(--white);
+            color: var(--deep-rose);
+        }
+
+        #cta .btn-primary:hover {
+            background: var(--cream);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--primary-gold);
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary-gold);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+            display: block;
+            padding: 5px 0;
+        }
+
+        .footer-column a:hover {
+            opacity: 1;
+            color: var(--primary-gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            opacity: 0.6;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .hero-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .floating-badge {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            #hero {
+                min-height: auto;
+                padding: 60px 0;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .steps-container,
+            .tech-features,
+            .benefits-grid,
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* Loading State */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Skeleton Loader */
+        .skeleton-loader {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">Pippa of London</a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="/" class="nav-link">Home</a></li>
+                        <li><a href="/how-it-works.html" class="nav-link">How It Works</a></li>
+                        <li><a href="/catalog/products.html" class="nav-link">Products</a></li>
+                        <li><a href="/about.html" class="nav-link">About</a></li>
+                    </ul>
+                    <a href="/auth/auth.html" class="nav-cta">Try Now</a>
+                    <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-wrapper">
+                <div class="hero-content">
+                    <h1>Find Your Perfect Shade with AI Precision</h1>
+                    <p>Revolutionary color-matching technology that analyzes your unique skin tone and undertones to recommend makeup shades that are truly made for you.</p>
+                    <div class="hero-cta">
+                        <button class="btn btn-primary" onclick="startAnalysis()">Try Free Analysis</button>
+                        <button class="btn btn-secondary" onclick="learnMore()">How It Works</button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop" alt="Diverse beauty showcasing different skin tones">
+                    <div class="floating-badge badge-accuracy">
+                        <span>98% Accuracy</span>
+                    </div>
+                    <div class="floating-badge badge-inclusive">
+                        <span>All Skin Tones</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Get your perfect shade match in three simple steps</p>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <span class="step-number">01</span>
+                    <span class="step-icon">📸</span>
+                    <h3>Capture or Upload</h3>
+                    <p>Take a selfie or upload a photo in good lighting</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">02</span>
+                    <span class="step-icon">🧠</span>
+                    <h3>AI Analysis</h3>
+                    <p>Our advanced AI analyzes your skin tone and undertones using the Monk Skin Tone Scale</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">03</span>
+                    <span class="step-icon">💄</span>
+                    <h3>Perfect Matches</h3>
+                    <p>Get personalized shade recommendations across foundations, concealers, and more</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Science Behind Perfect Color Matching</h2>
+                <p>Advanced technology meets inclusive beauty</p>
+            </div>
+            <div class="tech-features">
+                <div class="feature">
+                    <h3>Monk Skin Tone Scale</h3>
+                    <p>We use Google's inclusive 10-point skin tone scale for accurate representation across all skin tones</p>
+                </div>
+                <div class="feature">
+                    <h3>Undertone Analysis</h3>
+                    <p>Advanced algorithms detect cool, warm, and neutral undertones for precise color matching</p>
+                </div>
+                <div class="feature">
+                    <h3>Delta E Color Accuracy</h3>
+                    <p>Professional-grade color matching with scientifically-measured precision under various lighting conditions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose Pippa of London</h2>
+                <p>Experience the future of personalized beauty</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit">
+                    <div class="benefit-icon">✨</div>
+                    <div class="benefit-content">
+                        <h4>No more wrong shade purchases</h4>
+                        <p>Save money and reduce waste with accurate color matching</p>
+                    </div>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">🌍</div>
+                    <div class="benefit-content">
+                        <h4>Inclusive color matching for all skin tones</h4>
+                        <p>Technology that works beautifully for everyone</p>
+                    </div>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">🌱</div>
+                    <div class="benefit-content">
+                        <h4>Sustainable beauty choices</h4>
+                        <p>Reduce returns and environmental impact</p>
+                    </div>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">🎯</div>
+                    <div class="benefit-content">
+                        <h4>Professional-grade accuracy</h4>
+                        <p>Industry-leading color science and AI technology</p>
+                    </div>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">📱</div>
+                    <div class="benefit-content">
+                        <h4>Works on any device</h4>
+                        <p>No app download required - use it anywhere</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section id="social-proof">
+        <div class="container">
+            <div class="section-header">
+                <h2>Trusted by Beauty Lovers Worldwide</h2>
+                <p>Join thousands who've found their perfect match</p>
+            </div>
+            <div class="stats-container">
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Skin tones tested</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">70%</span>
+                    <span class="stat-label">Reduction in returns</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Match accuracy</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">10k+</span>
+                    <span class="stat-label">Happy customers</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta">
+        <div class="container">
+            <h2>Ready to Find Your Perfect Shade?</h2>
+            <p>Join the beauty revolution with AI-powered color matching</p>
+            <button class="btn btn-primary" onclick="startAnalysis()">Start Free Analysis</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Pippa of London</h3>
+                    <p>Revolutionary AI-powered beauty technology for inclusive, accurate shade matching. Making beauty personal for everyone.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                        <a href="#" class="social-link" aria-label="Facebook">👤</a>
+                        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+                        <a href="#" class="social-link" aria-label="YouTube">▶️</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="/how-it-works.html">How It Works</a></li>
+                        <li><a href="/catalog/products.html">Products</a></li>
+                        <li><a href="/about.html">Technology</a></li>
+                        <li><a href="/auth/auth.html">Try Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/contact.html">Help Center</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pippa of London. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navigation functionality
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const header = document.getElementById('main-header');
+
+        // Mobile menu toggle
+        mobileMenuToggle?.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuToggle.classList.toggle('active');
+        });
+
+        // Header scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Integration functions
+        function startAnalysis() {
+            // Check if user is logged in (check localStorage/sessionStorage)
+            const currentUser = sessionStorage.getItem('currentUser') || localStorage.getItem('currentUser');
+            
+            if (!currentUser) {
+                window.location.href = '/auth/auth.html';
+            } else {
+                window.location.href = '/media/capture.html';
+            }
+        }
+
+        function learnMore() {
+            window.location.href = '/how-it-works.html';
+        }
+
+        function viewProducts() {
+            window.location.href = '/catalog/products.html';
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Check authentication status and update navigation
+        function updateNavigation() {
+            const currentUser = sessionStorage.getItem('currentUser') || localStorage.getItem('currentUser');
+            const navCta = document.querySelector('.nav-cta');
+            
+            if (currentUser && navCta) {
+                const userData = JSON.parse(currentUser);
+                navCta.textContent = 'My Account';
+                navCta.href = '/auth/profile.html';
+            }
+        }
+
+        // Initialize
+        updateNavigation();
+    </script>
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Terms of Service for Pippa of London - Our terms and conditions for using our AI color matching service.">
+    <title>Terms of Service - Pippa of London</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/website/global.css">
+    <style>
+        /* Reuse styles from privacy.html */
+        .legal-hero {
+            background: var(--light-gray);
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+
+        .legal-hero h1 {
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .legal-hero p {
+            font-size: 1.125rem;
+            color: var(--medium-gray);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .legal-content {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .legal-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .toc {
+            background: var(--light-gray);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 60px;
+        }
+
+        .toc h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--deep-rose);
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 12px;
+        }
+
+        .toc-list a {
+            color: var(--charcoal);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .toc-list a:hover {
+            color: var(--deep-rose);
+            transform: translateX(5px);
+        }
+
+        .toc-list a::before {
+            content: '→';
+            margin-right: 10px;
+            color: var(--primary-gold);
+        }
+
+        .legal-section {
+            margin-bottom: 60px;
+            scroll-margin-top: 100px;
+        }
+
+        .legal-section h2 {
+            font-size: 2rem;
+            margin-bottom: 24px;
+            color: var(--deep-rose);
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        .legal-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-gold);
+        }
+
+        .legal-section h3 {
+            font-size: 1.375rem;
+            margin: 32px 0 16px;
+            color: var(--charcoal);
+        }
+
+        .legal-section p {
+            line-height: 1.8;
+            margin-bottom: 16px;
+            color: var(--charcoal);
+        }
+
+        .legal-section ul,
+        .legal-section ol {
+            margin: 16px 0 24px 20px;
+            line-height: 1.8;
+        }
+
+        .legal-section li {
+            margin-bottom: 8px;
+            color: var(--charcoal);
+        }
+
+        .highlight-box {
+            background: var(--soft-pink);
+            padding: 24px;
+            border-radius: 12px;
+            margin: 32px 0;
+            border-left: 4px solid var(--deep-rose);
+        }
+
+        .highlight-box h4 {
+            font-size: 1.125rem;
+            margin-bottom: 12px;
+            color: var(--deep-rose);
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+
+        .contact-box {
+            background: var(--light-gray);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .contact-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--deep-rose);
+        }
+
+        .contact-box p {
+            margin-bottom: 24px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--deep-rose);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-gold);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .legal-container {
+                padding: 0 20px;
+            }
+
+            .toc {
+                padding: 20px;
+            }
+
+            .legal-section h2 {
+                font-size: 1.75rem;
+            }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">Pippa of London</a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="/" class="nav-link">Home</a></li>
+                        <li><a href="/how-it-works.html" class="nav-link">How It Works</a></li>
+                        <li><a href="/catalog/products.html" class="nav-link">Products</a></li>
+                        <li><a href="/about.html" class="nav-link">About</a></li>
+                    </ul>
+                    <a href="/auth/auth.html" class="nav-cta">Try Now</a>
+                    <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Legal Hero -->
+    <section class="legal-hero">
+        <div class="container">
+            <h1>Terms of Service</h1>
+            <p>Last updated: June 6, 2025</p>
+        </div>
+    </section>
+
+    <!-- Legal Content -->
+    <section class="legal-content">
+        <div class="legal-container">
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h2>Table of Contents</h2>
+                <ul class="toc-list">
+                    <li><a href="#agreement">1. Agreement to Terms</a></li>
+                    <li><a href="#use-license">2. Use License</a></li>
+                    <li><a href="#user-accounts">3. User Accounts</a></li>
+                    <li><a href="#prohibited-uses">4. Prohibited Uses</a></li>
+                    <li><a href="#intellectual-property">5. Intellectual Property</a></li>
+                    <li><a href="#user-content">6. User Content</a></li>
+                    <li><a href="#privacy">7. Privacy</a></li>
+                    <li><a href="#disclaimers">8. Disclaimers</a></li>
+                    <li><a href="#limitations">9. Limitations of Liability</a></li>
+                    <li><a href="#indemnification">10. Indemnification</a></li>
+                    <li><a href="#termination">11. Termination</a></li>
+                    <li><a href="#governing-law">12. Governing Law</a></li>
+                    <li><a href="#changes">13. Changes to Terms</a></li>
+                    <li><a href="#contact">14. Contact Information</a></li>
+                </ul>
+            </div>
+
+            <!-- Agreement to Terms -->
+            <div class="legal-section" id="agreement">
+                <h2>1. Agreement to Terms</h2>
+                <p>These Terms of Service ("Terms") constitute a legally binding agreement between you and Pippa of London ("Company", "we", "us", or "our") concerning your access to and use of the pippaoflondon.com website and any related services (collectively, the "Service").</p>
+                
+                <p>By accessing or using our Service, you agree to be bound by these Terms. If you disagree with any part of these terms, then you may not access the Service.</p>
+
+                <div class="highlight-box">
+                    <h4>Age Requirement</h4>
+                    <p>You must be at least 16 years old to use our Service. By using our Service, you represent and warrant that you are at least 16 years of age.</p>
+                </div>
+            </div>
+
+            <!-- Use License -->
+            <div class="legal-section" id="use-license">
+                <h2>2. Use License</h2>
+                
+                <h3>Grant of License</h3>
+                <p>Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to:</p>
+                <ul>
+                    <li>Access and use the Service for personal, non-commercial purposes</li>
+                    <li>Use our AI color matching technology to analyze your skin tone</li>
+                    <li>View and purchase products based on our recommendations</li>
+                    <li>Create and manage your personal account</li>
+                </ul>
+
+                <h3>License Restrictions</h3>
+                <p>You may not:</p>
+                <ul>
+                    <li>Modify, copy, or create derivative works based on the Service</li>
+                    <li>Reverse engineer or attempt to extract the source code</li>
+                    <li>Use the Service for any illegal or unauthorized purpose</li>
+                    <li>Attempt to bypass any security features</li>
+                    <li>Use automated systems or software to extract data from the Service</li>
+                </ul>
+            </div>
+
+            <!-- User Accounts -->
+            <div class="legal-section" id="user-accounts">
+                <h2>3. User Accounts</h2>
+                
+                <h3>Account Creation</h3>
+                <p>To access certain features of the Service, you may be required to create an account. When creating an account, you agree to:</p>
+                <ul>
+                    <li>Provide accurate, current, and complete information</li>
+                    <li>Maintain and promptly update your account information</li>
+                    <li>Maintain the security of your password and account</li>
+                    <li>Accept responsibility for all activities under your account</li>
+                    <li>Notify us immediately of any unauthorized use</li>
+                </ul>
+
+                <h3>Account Termination</h3>
+                <p>We reserve the right to suspend or terminate your account if:</p>
+                <ul>
+                    <li>You violate these Terms</li>
+                    <li>You provide false or misleading information</li>
+                    <li>You engage in fraudulent or illegal activities</li>
+                    <li>We believe termination is necessary to protect other users</li>
+                </ul>
+            </div>
+
+            <!-- Prohibited Uses -->
+            <div class="legal-section" id="prohibited-uses">
+                <h2>4. Prohibited Uses</h2>
+                
+                <p>You may not use our Service:</p>
+                <ul>
+                    <li>For any unlawful purpose or to solicit others to perform unlawful acts</li>
+                    <li>To violate any international, federal, provincial, or state regulations, rules, laws, or local ordinances</li>
+                    <li>To infringe upon or violate our intellectual property rights or the intellectual property rights of others</li>
+                    <li>To harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate</li>
+                    <li>To submit false or misleading information</li>
+                    <li>To upload or transmit viruses or any other type of malicious code</li>
+                    <li>To interfere with or circumvent the security features of the Service</li>
+                    <li>To scrape, spider, or crawl any part of the Service</li>
+                    <li>To use the Service in any manner that could disable, overburden, damage, or impair the Service</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h4>Enforcement</h4>
+                    <p>We reserve the right to take appropriate legal action for any illegal or unauthorized use of the Service.</p>
+                </div>
+            </div>
+
+            <!-- Intellectual Property -->
+            <div class="legal-section" id="intellectual-property">
+                <h2>5. Intellectual Property</h2>
+                
+                <h3>Our Intellectual Property</h3>
+                <p>The Service and its original content, features, and functionality are and will remain the exclusive property of Pippa of London and its licensors. This includes but is not limited to:</p>
+                <ul>
+                    <li>Our AI color matching algorithms and technology</li>
+                    <li>The Pippa of London name, logo, and branding</li>
+                    <li>Website design, layout, and user interface</li>
+                    <li>Product descriptions, images, and content</li>
+                    <li>Any software, code, or technology powering the Service</li>
+                </ul>
+
+                <h3>Trademarks</h3>
+                <p>Pippa of London, TrueTone Scan™, ColourGraph Embeddings™, RealShade WebAR™, and related logos are trademarks of the Company. You may not use these marks without our prior written permission.</p>
+
+                <h3>Third-Party Content</h3>
+                <p>Our Service may contain links to third-party websites or services that are not owned or controlled by us. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.</p>
+            </div>
+
+            <!-- User Content -->
+            <div class="legal-section" id="user-content">
+                <h2>6. User Content</h2>
+                
+                <h3>Your Content</h3>
+                <p>When you upload images or provide feedback through our Service, you retain ownership of your content. However, by using our Service, you grant us:</p>
+                <ul>
+                    <li>A limited license to process your images for color analysis</li>
+                    <li>The right to use anonymized color data to improve our algorithms</li>
+                    <li>Permission to use your feedback to enhance our Service</li>
+                </ul>
+
+                <h3>Content Guidelines</h3>
+                <p>You agree not to upload or share content that:</p>
+                <ul>
+                    <li>Violates any laws or regulations</li>
+                    <li>Infringes on intellectual property rights</li>
+                    <li>Contains explicit, offensive, or inappropriate material</li>
+                    <li>Includes personal information of others without consent</li>
+                    <li>Is false, misleading, or fraudulent</li>
+                </ul>
+
+                <h3>Image Processing</h3>
+                <p>By using our color matching service:</p>
+                <ul>
+                    <li>You confirm you have the right to use any images you upload</li>
+                    <li>You understand images are processed locally unless you save results</li>
+                    <li>You agree to our extraction of non-identifiable color data</li>
+                    <li>You can delete your saved data at any time</li>
+                </ul>
+            </div>
+
+            <!-- Privacy -->
+            <div class="legal-section" id="privacy">
+                <h2>7. Privacy</h2>
+                
+                <p>Your use of our Service is also governed by our Privacy Policy, which is incorporated into these Terms by reference. Please review our <a href="/privacy.html">Privacy Policy</a> to understand our practices.</p>
+
+                <p>Key privacy commitments:</p>
+                <ul>
+                    <li>We process images locally in your browser by default</li>
+                    <li>We don't sell your personal information</li>
+                    <li>We use industry-standard security measures</li>
+                    <li>You control your data and can delete it anytime</li>
+                </ul>
+            </div>
+
+            <!-- Disclaimers -->
+            <div class="legal-section" id="disclaimers">
+                <h2>8. Disclaimers</h2>
+                
+                <h3>Service Disclaimer</h3>
+                <p>THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. WE MAKE NO WARRANTIES, WHETHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION:</p>
+                <ul>
+                    <li>The implied warranties of merchantability and fitness for a particular purpose</li>
+                    <li>That the Service will be uninterrupted, secure, or error-free</li>
+                    <li>That defects will be corrected</li>
+                    <li>That our Service is free of viruses or other harmful components</li>
+                </ul>
+
+                <h3>Color Matching Disclaimer</h3>
+                <p>While we strive for accuracy in our color matching technology:</p>
+                <ul>
+                    <li>Results may vary based on lighting conditions and device capabilities</li>
+                    <li>We cannot guarantee perfect matches in all circumstances</li>
+                    <li>Individual perception of color may vary</li>
+                    <li>Screen displays may not accurately represent actual product colors</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h4>Product Disclaimer</h4>
+                    <p>We recommend testing products before full application. Individual skin reactions may vary, and we are not responsible for allergic reactions or skin sensitivities.</p>
+                </div>
+            </div>
+
+            <!-- Limitations of Liability -->
+            <div class="legal-section" id="limitations">
+                <h2>9. Limitations of Liability</h2>
+                
+                <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL PIPPA OF LONDON, ITS DIRECTORS, EMPLOYEES, PARTNERS, AGENTS, SUPPLIERS, OR AFFILIATES BE LIABLE FOR:</p>
+                <ul>
+                    <li>Any indirect, incidental, special, consequential, or punitive damages</li>
+                    <li>Loss of profits, data, use, goodwill, or other intangible losses</li>
+                    <li>The cost of substitute products or services</li>
+                    <li>Any damages exceeding the amount paid by you to us in the past twelve months</li>
+                </ul>
+
+                <p>These limitations apply regardless of the legal theory on which the claim is based and even if we have been advised of the possibility of such damages.</p>
+            </div>
+
+            <!-- Indemnification -->
+            <div class="legal-section" id="indemnification">
+                <h2>10. Indemnification</h2>
+                
+                <p>You agree to defend, indemnify, and hold harmless Pippa of London and its licensees, licensors, employees, contractors, agents, officers, and directors from and against any claims, damages, obligations, losses, liabilities, costs, or debt, and expenses (including attorney's fees) arising from:</p>
+                <ul>
+                    <li>Your use of and access to the Service</li>
+                    <li>Your violation of these Terms</li>
+                    <li>Your violation of any third-party rights</li>
+                    <li>Any content you upload or share through the Service</li>
+                </ul>
+            </div>
+
+            <!-- Termination -->
+            <div class="legal-section" id="termination">
+                <h2>11. Termination</h2>
+                
+                <p>We may terminate or suspend your account and bar access to the Service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+
+                <p>Upon termination:</p>
+                <ul>
+                    <li>Your right to use the Service will cease immediately</li>
+                    <li>We may delete your account and any associated data</li>
+                    <li>Provisions that should survive termination will remain in effect</li>
+                </ul>
+
+                <p>You may terminate your account at any time by contacting us or using the account deletion feature.</p>
+            </div>
+
+            <!-- Governing Law -->
+            <div class="legal-section" id="governing-law">
+                <h2>12. Governing Law</h2>
+                
+                <p>These Terms shall be governed and construed in accordance with the laws of the United Kingdom, without regard to its conflict of law provisions.</p>
+
+                <p>Any disputes arising from these Terms or your use of the Service shall be resolved through:</p>
+                <ol>
+                    <li>Good faith negotiations between the parties</li>
+                    <li>If negotiations fail, binding arbitration in London, UK</li>
+                    <li>Small claims court for qualifying disputes</li>
+                </ol>
+
+                <p>You waive any right to a jury trial or to participate in a class action lawsuit.</p>
+            </div>
+
+            <!-- Changes to Terms -->
+            <div class="legal-section" id="changes">
+                <h2>13. Changes to Terms</h2>
+                
+                <p>We reserve the right to modify or replace these Terms at any time. If a revision is material, we will provide notice prior to any new terms taking effect by:</p>
+                <ul>
+                    <li>Posting the updated Terms on this page</li>
+                    <li>Updating the "Last updated" date</li>
+                    <li>Sending email notification to registered users</li>
+                    <li>Displaying a prominent notice on our Service</li>
+                </ul>
+
+                <p>By continuing to access or use our Service after revisions become effective, you agree to be bound by the revised Terms.</p>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="legal-section" id="contact">
+                <h2>14. Contact Information</h2>
+                
+                <p>If you have any questions about these Terms of Service, please contact us:</p>
+                
+                <div class="contact-box">
+                    <h3>Legal Department</h3>
+                    <p>Pippa of London<br>
+                    Email: legal@pippaoflondon.com<br>
+                    Address: 123 Beauty Lane, London, UK</p>
+                    <a href="/contact.html" class="btn btn-primary">Contact Form</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Pippa of London</h3>
+                    <p>Revolutionary AI-powered beauty technology for inclusive, accurate shade matching.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                        <a href="#" class="social-link" aria-label="Facebook">👤</a>
+                        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+                        <a href="#" class="social-link" aria-label="YouTube">▶️</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="/how-it-works.html">How It Works</a></li>
+                        <li><a href="/catalog/products.html">Products</a></li>
+                        <li><a href="/about.html">Technology</a></li>
+                        <li><a href="/auth/auth.html">Try Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/contact.html">Help Center</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pippa of London. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" aria-label="Back to top">↑</a>
+
+    <!-- Scripts -->
+    <script src="/website/navigation.js"></script>
+    <script>
+        // Smooth scrolling for table of contents
+        document.querySelectorAll('.toc-list a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Back to top button
+        const backToTop = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

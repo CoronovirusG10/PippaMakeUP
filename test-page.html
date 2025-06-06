@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pippa of London - Color Analysis Test Page</title>
+    
+    <style>
+        /* Quick demo styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #E91E63;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info {
+            background: #FCE4EC;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .demo-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        
+        .demo-section h2 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        button {
+            background: #E91E63;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        
+        button:hover {
+            background: #D81B60;
+        }
+        
+        .secondary-btn {
+            background: #757575;
+        }
+        
+        .secondary-btn:hover {
+            background: #616161;
+        }
+        
+        .results-display {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .status {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            font-weight: 500;
+        }
+        
+        .status.success {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        
+        .status.error {
+            background: #FFCDD2;
+            color: #C62828;
+        }
+        
+        .status.loading {
+            background: #FFF9C4;
+            color: #F57C00;
+        }
+        
+        .sample-images {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        
+        .sample-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .sample-img:hover {
+            border-color: #E91E63;
+        }
+        
+        .color-swatch {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            vertical-align: middle;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .match-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            margin: 0.5rem 0;
+        }
+        
+        .match-color {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        
+        .links {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .links a {
+            color: #E91E63;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>Pippa of London - Color Analysis Module Test</h1>
+        <p>Complete working demonstration of Module 4: Basic Color Analysis Engine</p>
+        
+        <div class="info">
+            <strong>ℹ️ Test Instructions:</strong>
+            <ul>
+                <li>Click "Load Sample Image" to use a pre-generated test image</li>
+                <li>Or upload your own photo using "Upload Custom Image"</li>
+                <li>Toggle "Mock Mode" for instant fake results (no real analysis)</li>
+                <li>Open browser console to see performance metrics</li>
+            </ul>
+        </div>
+        
+        <!-- Module Status -->
+        <div class="demo-section">
+            <h2>Module Status</h2>
+            <div id="moduleStatus" class="status loading">Initializing color analysis module...</div>
+            <div id="faceApiStatus"></div>
+        </div>
+        
+        <!-- Test Controls -->
+        <div class="demo-section">
+            <h2>Test Controls</h2>
+            
+            <div>
+                <button onclick="loadSampleImage()">Load Sample Image</button>
+                <button onclick="document.getElementById('fileInput').click()" class="secondary-btn">Upload Custom Image</button>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileUpload(event)">
+            </div>
+            
+            <div style="margin-top: 1rem;">
+                <label>
+                    <input type="checkbox" id="mockMode" onchange="toggleMockMode()">
+                    Mock Mode (instant fake results)
+                </label>
+            </div>
+            
+            <div class="sample-images" id="sampleImages">
+                <!-- Sample images will be populated here -->
+            </div>
+        </div>
+        
+        <!-- Analysis Progress -->
+        <div class="demo-section" id="progressSection" style="display: none;">
+            <h2>Analysis Progress</h2>
+            <div id="progressStatus"></div>
+            <div style="background: #e0e0e0; height: 20px; border-radius: 10px; overflow: hidden;">
+                <div id="progressBar" style="background: linear-gradient(90deg, #E91E63, #FFD700); height: 100%; width: 0%; transition: width 0.5s;"></div>
+            </div>
+        </div>
+        
+        <!-- Results Display -->
+        <div class="demo-section" id="resultsSection" style="display: none;">
+            <h2>Analysis Results</h2>
+            
+            <div id="skinToneDisplay" style="margin: 1rem 0;">
+                <!-- Skin tone visualization will appear here -->
+            </div>
+            
+            <div id="matchesDisplay" style="margin: 1rem 0;">
+                <!-- Product matches will appear here -->
+            </div>
+            
+            <div class="results-display">
+                <pre id="resultsJson"></pre>
+            </div>
+        </div>
+        
+        <!-- Performance Metrics -->
+        <div class="demo-section">
+            <h2>Performance Metrics</h2>
+            <button onclick="showPerformanceMetrics()">Show Timing Data</button>
+            <div class="results-display" id="performanceDisplay" style="display: none;">
+                <pre id="performanceJson"></pre>
+            </div>
+        </div>
+        
+        <!-- Links to Module Files -->
+        <div class="links">
+            <a href="analyzer.html">Full Analysis Interface</a>
+            <a href="analyzer.html?dev=true">Developer Mode</a>
+            <a href="#" onclick="viewSourceCode()">View Source Code</a>
+            <a href="#" onclick="downloadModule()">Download Module</a>
+        </div>
+    </div>
+    
+    <!-- Load all required scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <script src="analysis-utils.js"></script>
+    <script src="face-detection.js"></script>
+    <script src="color-extraction.js"></script>
+    <script src="color-matching.js"></script>
+    <script src="../test-data/sample-products.js"></script>
+    
+    <script>
+        // Test page functionality
+        let isInitialized = false;
+        let currentAnalysis = null;
+        
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', async () => {
+            console.log('Initializing test page...');
+            
+            try {
+                await window.FaceDetection.initializeFaceDetection();
+                document.getElementById('moduleStatus').className = 'status success';
+                document.getElementById('moduleStatus').textContent = 'Module initialized successfully!';
+                document.getElementById('faceApiStatus').textContent = 'Face detection models loaded ✓';
+                isInitialized = true;
+                
+                // Generate sample images
+                generateSampleImages();
+                
+            } catch (error) {
+                document.getElementById('moduleStatus').className = 'status error';
+                document.getElementById('moduleStatus').textContent = 'Failed to initialize: ' + error.message;
+                console.error('Initialization error:', error);
+            }
+        });
+        
+        // Generate sample image placeholders
+        function generateSampleImages() {
+            const container = document.getElementById('sampleImages');
+            container.innerHTML = '<p>Sample test images:</p>';
+            
+            for (let i = 1; i <= 5; i++) {
+                const img = document.createElement('div');
+                img.className = 'sample-img';
+                img.style.background = `linear-gradient(135deg, hsl(${i * 60}, 70%, 80%), hsl(${i * 60 + 30}, 70%, 60%))`;
+                img.style.display = 'flex';
+                img.style.alignItems = 'center';
+                img.style.justifyContent = 'center';
+                img.style.color = 'white';
+                img.style.fontWeight = 'bold';
+                img.innerHTML = `Sample ${i}`;
+                img.onclick = () => runMockAnalysis(i);
+                container.appendChild(img);
+            }
+        }
+        
+        // Load sample image
+        async function loadSampleImage() {
+            if (!isInitialized) {
+                alert('Module not initialized yet. Please wait...');
+                return;
+            }
+            
+            // For demo, we'll create a colored canvas as a sample image
+            const canvas = document.createElement('canvas');
+            canvas.width = 400;
+            canvas.height = 400;
+            const ctx = canvas.getContext('2d');
+            
+            // Create a gradient to simulate skin tone
+            const gradient = ctx.createRadialGradient(200, 200, 0, 200, 200, 150);
+            gradient.addColorStop(0, '#D4A574');
+            gradient.addColorStop(1, '#C8986B');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 400, 400);
+            
+            // Convert to data URL
+            const imageData = canvas.toDataURL('image/jpeg');
+            
+            // Run analysis
+            await runAnalysis(imageData);
+        }
+        
+        // Handle file upload
+        async function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (!isInitialized) {
+                alert('Module not initialized yet. Please wait...');
+                return;
+            }
+            
+            try {
+                const imageData = await window.ColorAnalysisUtils.preprocessImage(file);
+                await runAnalysis(imageData);
+            } catch (error) {
+                alert('Error processing image: ' + error.message);
+            }
+        }
+        
+        // Run analysis
+        async function runAnalysis(imageData) {
+            showProgress(true);
+            document.getElementById('resultsSection').style.display = 'none';
+            
+            try {
+                // Use the main analysis pipeline
+                currentAnalysis = await analyzeImage(imageData);
+                
+                // Display results
+                displayResults(currentAnalysis);
+                
+            } catch (error) {
+                console.error('Analysis error:', error);
+                alert('Analysis failed: ' + error.message);
+                showProgress(false);
+            }
+        }
+        
+        // Run mock analysis
+        async function runMockAnalysis(sampleNumber) {
+            window.mockMode = true;
+            showProgress(true);
+            
+            // Simulate analysis
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Generate mock results
+            currentAnalysis = window.ColorAnalysisUtils.generateMockAnalysisResults();
+            
+            // Add mock matches
+            currentAnalysis.matches = [
+                {
+                    productName: `Sample Foundation ${sampleNumber}`,
+                    shadeName: 'Perfect Match',
+                    hexColor: currentAnalysis.skinTone.hex,
+                    matchScore: 0.85 + Math.random() * 0.1
+                },
+                {
+                    productName: 'Concealer',
+                    shadeName: 'Brightening',
+                    hexColor: '#E8C8A8',
+                    matchScore: 0.75 + Math.random() * 0.1
+                }
+            ];
+            
+            displayResults(currentAnalysis);
+            window.mockMode = false;
+        }
+        
+        // Toggle mock mode
+        function toggleMockMode() {
+            window.mockMode = document.getElementById('mockMode').checked;
+            console.log('Mock mode:', window.mockMode);
+        }
+        
+        // Show/hide progress
+        function showProgress(show) {
+            document.getElementById('progressSection').style.display = show ? 'block' : 'none';
+        }
+        
+        // Progress callback
+        window.showProgress = function(message, percentage) {
+            document.getElementById('progressStatus').textContent = message;
+            document.getElementById('progressBar').style.width = percentage + '%';
+        };
+        
+        // Display results
+        function displayResults(results) {
+            showProgress(false);
+            document.getElementById('resultsSection').style.display = 'block';
+            
+            // Display skin tone
+            const skinToneHtml = `
+                <h3>Detected Skin Tone</h3>
+                <div style="display: flex; align-items: center;">
+                    <div class="color-swatch" style="background-color: ${results.skinTone.hex}"></div>
+                    <div>
+                        <strong>Monk Scale:</strong> ${results.skinTone.monkScale}<br>
+                        <strong>Undertone:</strong> ${results.skinTone.undertone}<br>
+                        <strong>Confidence:</strong> ${Math.round(results.confidence * 100)}%<br>
+                        <strong>Hex:</strong> ${results.skinTone.hex}
+                    </div>
+                </div>
+            `;
+            document.getElementById('skinToneDisplay').innerHTML = skinToneHtml;
+            
+            // Display matches
+            if (results.matches && results.matches.length > 0) {
+                let matchesHtml = '<h3>Top Product Matches</h3>';
+                results.matches.slice(0, 5).forEach(match => {
+                    matchesHtml += `
+                        <div class="match-item">
+                            <div class="match-color" style="background-color: ${match.hexColor}"></div>
+                            <div>
+                                <strong>${match.productName}</strong> - ${match.shadeName}<br>
+                                Match Score: ${Math.round(match.matchScore * 100)}%
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById('matchesDisplay').innerHTML = matchesHtml;
+            }
+            
+            // Display full JSON
+            document.getElementById('resultsJson').textContent = JSON.stringify(results, null, 2);
+        }
+        
+        // Show performance metrics
+        function showPerformanceMetrics() {
+            const display = document.getElementById('performanceDisplay');
+            const metrics = window.performanceMetrics || {};
+            
+            document.getElementById('performanceJson').textContent = JSON.stringify(metrics, null, 2);
+            display.style.display = display.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        // View source code
+        function viewSourceCode() {
+            const files = [
+                'analyzer.html',
+                'analysis.css',
+                'analysis-utils.js',
+                'face-detection.js',
+                'color-extraction.js',
+                'color-matching.js'
+            ];
+            
+            alert('Module files:\n\n' + files.join('\n'));
+        }
+        
+        // Download module
+        function downloadModule() {
+            alert('Module download would include all files in the analysis/ directory:\n\n' +
+                  '- analyzer.html\n' +
+                  '- analysis.css\n' +
+                  '- analysis-utils.js\n' +
+                  '- face-detection.js\n' +
+                  '- color-extraction.js\n' +
+                  '- color-matching.js\n' +
+                  '- sample-products.js\n' +
+                  '- test-analysis.html');
+        }
+        
+        // Main analysis pipeline (copied from analyzer.html)
+        async function analyzeImage(imageFile) {
+            const utils = window.ColorAnalysisUtils;
+            const startTime = performance.now();
+            
+            try {
+                utils.performanceTracker.start('totalAnalysis');
+                window.showProgress('Preparing image...', 5);
+                
+                const img = new Image();
+                await new Promise((resolve, reject) => {
+                    img.onload = resolve;
+                    img.onerror = reject;
+                    img.src = imageFile;
+                });
+                
+                if (window.mockMode) {
+                    console.log('Using mock analysis mode');
+                    const steps = [
+                        { message: 'Detecting face...', progress: 20 },
+                        { message: 'Analyzing skin tone...', progress: 50 },
+                        { message: 'Finding matches...', progress: 80 }
+                    ];
+                    
+                    for (const step of steps) {
+                        window.showProgress(step.message, step.progress);
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                    }
+                    
+                    const mockResults = utils.generateMockAnalysisResults();
+                    utils.performanceTracker.end('totalAnalysis');
+                    window.showProgress('Analysis complete!', 100);
+                    return mockResults;
+                }
+                
+                const faceDetection = await window.FaceDetection.detectFace(img);
+                const skinToneData = await window.ColorExtraction.extractSkinTone(img, faceDetection);
+                
+                const productDatabase = window.getProductCatalog ? window.getProductCatalog() : null;
+                const matches = await window.ColorMatching.findBestMatches(skinToneData, productDatabase);
+                
+                const confidence = utils.calculateConfidenceScore({
+                    faceConfidence: faceDetection.confidence,
+                    lightingQuality: 0.85,
+                    imageQuality: skinToneData.sampleQuality
+                });
+                
+                const results = {
+                    analysisId: utils.generateId(),
+                    timestamp: utils.formatTimestamp(),
+                    confidence: confidence,
+                    skinTone: skinToneData,
+                    faceDetection: {
+                        confidence: faceDetection.confidence,
+                        boundingBox: faceDetection.faceBox
+                    },
+                    matches: matches.allMatches.slice(0, 10),
+                    processingTime: performance.now() - startTime
+                };
+                
+                utils.performanceTracker.end('totalAnalysis');
+                window.showProgress('Analysis complete!', 100);
+                
+                return results;
+                
+            } catch (error) {
+                utils.performanceTracker.end('totalAnalysis');
+                throw error;
+            }
+        }
+    </script>
+</body>
+</html>

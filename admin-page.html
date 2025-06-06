@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Pippa of London</title>
+    <link rel="stylesheet" href="catalog.css">
+</head>
+<body>
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content admin-login">
+            <h2>Admin Access</h2>
+            <p class="demo-notice">Demo Password: admin123</p>
+            <form id="adminLoginForm">
+                <input type="password" id="adminPassword" placeholder="Enter password" required>
+                <button type="submit">Login</button>
+                <p class="error-message hidden" id="loginError">Incorrect password</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <div class="logo">
+                    <h1>Pippa of London - Admin</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="admin.html" class="active">Admin</a></li>
+                    <li><a href="#" id="adminLogout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Admin Content -->
+    <main class="admin-main hidden" id="adminContent">
+        <div class="container">
+            <!-- Admin Dashboard -->
+            <div class="admin-dashboard">
+                <h2>Product Management Dashboard</h2>
+                
+                <!-- Stats Overview -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Products</h3>
+                        <p class="stat-value" id="totalProducts">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Shades</h3>
+                        <p class="stat-value" id="totalShades">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Out of Stock</h3>
+                        <p class="stat-value" id="outOfStock">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Categories</h3>
+                        <p class="stat-value">5</p>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="admin-actions">
+                    <button id="addProductBtn" class="primary-btn">Add New Product</button>
+                    <button id="bulkImportBtn" class="secondary-btn">Bulk Import</button>
+                    <button id="exportDataBtn" class="secondary-btn">Export Data</button>
+                </div>
+
+                <!-- Product Management Tabs -->
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="products">Manage Products</button>
+                    <button class="tab-btn" data-tab="shades">Manage Shades</button>
+                    <button class="tab-btn" data-tab="analytics">Analytics</button>
+                </div>
+
+                <!-- Products Tab -->
+                <div id="productsTab" class="tab-content active">
+                    <div class="admin-search">
+                        <input type="text" id="adminSearch" placeholder="Search products...">
+                        <select id="adminCategoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="foundation">Foundation</option>
+                            <option value="concealer">Concealer</option>
+                            <option value="lipstick">Lipstick</option>
+                            <option value="blush">Blush</option>
+                            <option value="bronzer">Bronzer</option>
+                        </select>
+                    </div>
+
+                    <div class="admin-products-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Shades</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminProductsList">
+                                <!-- Products will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Shades Tab -->
+                <div id="shadesTab" class="tab-content hidden">
+                    <div class="shade-management">
+                        <h3>Shade Management</h3>
+                        <select id="productSelectForShades">
+                            <option value="">Select a product</option>
+                        </select>
+                        
+                        <div id="shadesList" class="shades-grid hidden">
+                            <!-- Shades will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div id="analyticsTab" class="tab-content hidden">
+                    <div class="analytics-section">
+                        <h3>Product Analytics</h3>
+                        
+                        <div class="analytics-grid">
+                            <div class="analytics-card">
+                                <h4>Category Distribution</h4>
+                                <canvas id="categoryChart"></canvas>
+                            </div>
+                            <div class="analytics-card">
+                                <h4>Undertone Distribution</h4>
+                                <canvas id="undertoneChart"></canvas>
+                            </div>
+                            <div class="analytics-card">
+                                <h4>Price Range Analysis</h4>
+                                <canvas id="priceChart"></canvas>
+                            </div>
+                            <div class="analytics-card">
+                                <h4>Shade Range Coverage</h4>
+                                <canvas id="shadeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Product Modal -->
+    <div id="productModal" class="modal hidden">
+        <div class="modal-content product-form">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle">Add New Product</h2>
+            
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Product Name *</label>
+                        <input type="text" id="productName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="productCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="foundation">Foundation</option>
+                            <option value="concealer">Concealer</option>
+                            <option value="lipstick">Lipstick</option>
+                            <option value="blush">Blush</option>
+                            <option value="bronzer">Bronzer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Subcategory</label>
+                        <input type="text" id="productSubcategory" placeholder="e.g., liquid, powder">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Price (£) *</label>
+                        <input type="number" id="productPrice" min="0" step="0.01" required>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Description *</label>
+                        <textarea id="productDescription" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Features (comma-separated)</label>
+                        <input type="text" id="productFeatures" placeholder="long-wearing, buildable, non-comedogenic">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Skin Types</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="skinType" value="all"> All</label>
+                            <label><input type="checkbox" name="skinType" value="dry"> Dry</label>
+                            <label><input type="checkbox" name="skinType" value="oily"> Oily</label>
+                            <label><input type="checkbox" name="skinType" value="combination"> Combination</label>
+                            <label><input type="checkbox" name="skinType" value="sensitive"> Sensitive</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Ingredients</label>
+                        <textarea id="productIngredients" rows="2" placeholder="water, dimethicone, titanium dioxide"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="productStatus">
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" onclick="closeProductModal()">Cancel</button>
+                    <button type="submit" class="save-btn">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Shade Modal -->
+    <div id="shadeModal" class="modal hidden">
+        <div class="modal-content shade-form">
+            <span class="close-modal">&times;</span>
+            <h2 id="shadeModalTitle">Add New Shade</h2>
+            
+            <form id="shadeForm">
+                <input type="hidden" id="shadeId">
+                <input type="hidden" id="shadeProductId">
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Shade Name *</label>
+                        <input type="text" id="shadeName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Shade Code *</label>
+                        <input type="text" id="shadeCode" placeholder="e.g., P01" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Hex Color *</label>
+                        <input type="color" id="shadeHexColor" required>
+                        <input type="text" id="shadeHexText" placeholder="#FDBCB4" pattern="^#[0-9A-Fa-f]{6}$">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Undertone *</label>
+                        <select id="shadeUndertone" required>
+                            <option value="">Select Undertone</option>
+                            <option value="cool">Cool</option>
+                            <option value="warm">Warm</option>
+                            <option value="neutral">Neutral</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Coverage</label>
+                        <select id="shadeCoverage">
+                            <option value="light">Light</option>
+                            <option value="medium">Medium</option>
+                            <option value="full">Full</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>LAB L Value *</label>
+                        <input type="number" id="labL" min="0" max="100" step="0.1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>LAB a Value *</label>
+                        <input type="number" id="labA" min="-128" max="127" step="0.1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>LAB b Value *</label>
+                        <input type="number" id="labB" min="-128" max="127" step="0.1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Monk Scale (1-10) *</label>
+                        <input type="number" id="monkScale" min="1" max="10" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Fitzpatrick Scale (1-6) *</label>
+                        <input type="number" id="fitzpatrickScale" min="1" max="6" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>In Stock</label>
+                        <select id="shadeInStock">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Popularity (0-10)</label>
+                        <input type="number" id="shadePopularity" min="0" max="10" step="0.1" value="5">
+                    </div>
+                </div>
+                
+                <div class="shade-preview">
+                    <h4>Preview</h4>
+                    <div id="shadePreview" class="shade-swatch-large"></div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" onclick="closeShadeModal()">Cancel</button>
+                    <button type="submit" class="save-btn">Save Shade</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Pippa of London. Admin Dashboard</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="product-data.js"></script>
+    <script src="catalog.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

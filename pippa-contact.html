@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Pippa of London - Get in touch with our support team for help with AI color matching technology.">
+    <title>Contact Us - Pippa of London</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/website/global.css">
+    <style>
+        /* Page-specific styles */
+        .contact-hero {
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--cream) 100%);
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+
+        .contact-hero h1 {
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .contact-hero p {
+            font-size: 1.25rem;
+            color: var(--medium-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        /* Contact Options */
+        .contact-options {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .contact-card {
+            text-align: center;
+            padding: 40px;
+            background: var(--light-gray);
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            background: var(--soft-pink);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: var(--deep-rose);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .contact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--charcoal);
+        }
+
+        .contact-card p {
+            color: var(--medium-gray);
+            margin-bottom: 20px;
+        }
+
+        .contact-card a {
+            color: var(--deep-rose);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-card a:hover {
+            color: var(--primary-gold);
+        }
+
+        /* Contact Form Section */
+        .contact-form-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--deep-rose);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .form-label .required {
+            color: var(--deep-rose);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+
+        .form-control.error {
+            border-color: var(--error);
+        }
+
+        select.form-control {
+            cursor: pointer;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 0.875rem;
+            color: var(--medium-gray);
+            margin-top: 4px;
+        }
+
+        .form-error {
+            color: var(--error);
+            font-size: 0.875rem;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .privacy-note {
+            font-size: 0.875rem;
+            color: var(--medium-gray);
+            max-width: 300px;
+        }
+
+        .privacy-note a {
+            color: var(--deep-rose);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: var(--success);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* FAQ Preview */
+        .faq-preview {
+            padding: 80px 0;
+            background: var(--cream);
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .faq-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .faq-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .faq-card h4 {
+            font-size: 1.125rem;
+            margin-bottom: 12px;
+            color: var(--deep-rose);
+        }
+
+        .faq-card p {
+            font-size: 0.9375rem;
+            line-height: 1.6;
+        }
+
+        /* Support Hours */
+        .support-hours {
+            padding: 60px 0;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 600px;
+            margin: 40px auto 0;
+        }
+
+        .hours-item {
+            padding: 20px;
+            background: var(--light-gray);
+            border-radius: 12px;
+        }
+
+        .hours-item h5 {
+            font-size: 1.125rem;
+            margin-bottom: 8px;
+            color: var(--charcoal);
+        }
+
+        .hours-item p {
+            font-size: 0.9375rem;
+            color: var(--medium-gray);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 40px 20px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .privacy-note {
+                max-width: 100%;
+                order: 2;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">Pippa of London</a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="/" class="nav-link">Home</a></li>
+                        <li><a href="/how-it-works.html" class="nav-link">How It Works</a></li>
+                        <li><a href="/catalog/products.html" class="nav-link">Products</a></li>
+                        <li><a href="/about.html" class="nav-link">About</a></li>
+                    </ul>
+                    <a href="/auth/auth.html" class="nav-cta">Try Now</a>
+                    <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Hero -->
+    <section class="contact-hero">
+        <div class="container">
+            <h1>Get in Touch</h1>
+            <p>Have questions about our AI color matching technology? We're here to help!</p>
+        </div>
+    </section>
+
+    <!-- Contact Options -->
+    <section class="contact-options">
+        <div class="container">
+            <div class="options-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email Support</h3>
+                    <p>Get detailed help from our support team</p>
+                    <a href="mailto:support@pippaoflondon.com">support@pippaoflondon.com</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <h3>Live Chat</h3>
+                    <p>Quick answers from our AI assistant</p>
+                    <a href="#" onclick="alert('Live chat would open here')">Start Chat</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📱</div>
+                    <h3>Social Media</h3>
+                    <p>Follow us for tips and updates</p>
+                    <a href="#">@pippaoflondon</a>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <form class="contact-form" id="contactForm" onsubmit="handleContactSubmit(event)">
+                    <h2 class="form-title">Send Us a Message</h2>
+
+                    <div class="success-message" id="successMessage">
+                        ✓ Thank you for your message! We'll get back to you within 24 hours.
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">
+                                First Name <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="firstName" 
+                                name="firstName" 
+                                class="form-control" 
+                                required
+                                placeholder="Jane"
+                            >
+                            <span class="form-error">Please enter your first name</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">
+                                Last Name <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="lastName" 
+                                name="lastName" 
+                                class="form-control" 
+                                required
+                                placeholder="Doe"
+                            >
+                            <span class="form-error">Please enter your last name</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                Email Address <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                class="form-control" 
+                                required
+                                placeholder="jane.doe@example.com"
+                            >
+                            <span class="form-error">Please enter a valid email address</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category" class="form-label">
+                                Topic <span class="required">*</span>
+                            </label>
+                            <select id="category" name="category" class="form-control" required>
+                                <option value="">Select a topic</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="account">Account & Billing</option>
+                                <option value="partnership">Partnership Inquiry</option>
+                                <option value="feedback">Product Feedback</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <span class="form-error">Please select a topic</span>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="subject" class="form-label">
+                                Subject <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="subject" 
+                                name="subject" 
+                                class="form-control" 
+                                required
+                                placeholder="Brief description of your inquiry"
+                            >
+                            <span class="form-error">Please enter a subject</span>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="message" class="form-label">
+                                Message <span class="required">*</span>
+                            </label>
+                            <textarea 
+                                id="message" 
+                                name="message" 
+                                class="form-control" 
+                                required
+                                placeholder="Tell us more about how we can help you..."
+                                maxlength="1000"
+                                onkeyup="updateCharCount(this)"
+                            ></textarea>
+                            <div class="char-count" id="charCount">0 / 1000</div>
+                            <span class="form-error">Please enter your message</span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <p class="privacy-note">
+                            By submitting this form, you agree to our 
+                            <a href="/privacy.html">Privacy Policy</a> and 
+                            <a href="/terms.html">Terms of Service</a>.
+                        </p>
+                        <button type="submit" class="btn btn-primary" id="submitButton">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Preview -->
+    <section class="faq-preview">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Quick Answers</h2>
+                <p>Find instant answers to common questions</p>
+            </div>
+
+            <div class="faq-grid">
+                <div class="faq-card">
+                    <h4>How do I get started?</h4>
+                    <p>Simply click "Try Now" to create a free account. Then take or upload a photo, and our AI will analyze your skin tone in seconds.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>Is my data safe?</h4>
+                    <p>Absolutely. All image processing happens in your browser, and we never store your photos unless you explicitly save results to your account.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>What if the match isn't perfect?</h4>
+                    <p>Our AI improves continuously. If a match isn't quite right, use the feedback feature to help us learn and provide better recommendations.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>Can I use this on mobile?</h4>
+                    <p>Yes! Our platform works on any device with a web browser - no app download required. Just visit our site on your phone or tablet.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>Do you ship internationally?</h4>
+                    <p>Currently, we're focused on the UK market, but we're planning to expand internationally soon. Join our newsletter for updates!</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>How can I partner with Pippa?</h4>
+                    <p>We offer SDK integration and white-label solutions for beauty brands. Contact us through the form above to discuss partnership opportunities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Hours -->
+    <section class="support-hours">
+        <div class="container">
+            <h3>Support Hours</h3>
+            <div class="hours-grid">
+                <div class="hours-item">
+                    <h5>Monday - Friday</h5>
+                    <p>9:00 AM - 6:00 PM GMT</p>
+                </div>
+                <div class="hours-item">
+                    <h5>Saturday</h5>
+                    <p>10:00 AM - 4:00 PM GMT</p>
+                </div>
+                <div class="hours-item">
+                    <h5>Sunday</h5>
+                    <p>Closed</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Pippa of London</h3>
+                    <p>Revolutionary AI-powered beauty technology for inclusive, accurate shade matching.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                        <a href="#" class="social-link" aria-label="Facebook">👤</a>
+                        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+                        <a href="#" class="social-link" aria-label="YouTube">▶️</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="/how-it-works.html">How It Works</a></li>
+                        <li><a href="/catalog/products.html">Products</a></li>
+                        <li><a href="/about.html">Technology</a></li>
+                        <li><a href="/auth/auth.html">Try Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/contact.html">Help Center</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pippa of London. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/website/navigation.js"></script>
+    <script>
+        // Character count for textarea
+        function updateCharCount(textarea) {
+            const count = textarea.value.length;
+            const maxLength = textarea.getAttribute('maxlength');
+            document.getElementById('charCount').textContent = `${count} / ${maxLength}`;
+        }
+
+        // Form validation and submission
+        function handleContactSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const submitButton = document.getElementById('submitButton');
+
+            // Reset error states
+            form.querySelectorAll('.form-control').forEach(field => {
+                field.classList.remove('error');
+            });
+
+            // Validate form
+            let isValid = true;
+            const requiredFields = form.querySelectorAll('[required]');
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    field.nextElementSibling.style.display = 'block';
+                    isValid = false;
+                } else {
+                    field.nextElementSibling.style.display = 'none';
+                }
+            });
+
+            // Validate email format
+            const emailField = form.querySelector('#email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailField.value && !emailRegex.test(emailField.value)) {
+                emailField.classList.add('error');
+                emailField.nextElementSibling.style.display = 'block';
+                emailField.nextElementSibling.textContent = 'Please enter a valid email address';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            // Show loading state
+            submitButton.innerHTML = '<span class="loading-spinner"></span> Sending...';
+            submitButton.disabled = true;
+
+            // Simulate form submission
+            setTimeout(() => {
+                // Store in localStorage for prototype
+                const contactSubmissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+                contactSubmissions.push({
+                    id: Date.now(),
+                    timestamp: new Date().toISOString(),
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    email: formData.get('email'),
+                    category: formData.get('category'),
+                    subject: formData.get('subject'),
+                    message: formData.get('message')
+                });
+                localStorage.setItem('contactSubmissions', JSON.stringify(contactSubmissions));
+
+                // Show success message
+                document.getElementById('successMessage').classList.add('show');
+                form.reset();
+                updateCharCount(form.querySelector('#message'));
+
+                // Reset button
+                submitButton.innerHTML = 'Send Message';
+                submitButton.disabled = false;
+
+                // Scroll to top of form
+                form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.remove('show');
+                }, 5000);
+            }, 1500);
+        }
+
+        // Form field focus effects
+        document.querySelectorAll('.form-control').forEach(field => {
+            field.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+
+            field.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+                
+                // Validate on blur
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.classList.add('error');
+                    this.nextElementSibling.style.display = 'block';
+                } else {
+                    this.classList.remove('error');
+                    this.nextElementSibling.style.display = 'none';
+                }
+            });
+        });
+
+        // Initialize character count
+        updateCharCount(document.getElementById('message'));
+    </script>
+</body>
+</html>

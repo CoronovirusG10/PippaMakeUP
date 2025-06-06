@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4 Integration Example - Pippa of London</title>
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #E91E63;
+            margin-bottom: 0.5rem;
+        }
+        
+        .module-flow {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .module-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 1.5rem;
+            background: #FCE4EC;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .module-box.active {
+            background: #E91E63;
+            color: white;
+        }
+        
+        .arrow {
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #E91E63;
+        }
+        
+        .code-section {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        button {
+            background: #E91E63;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        
+        button:hover {
+            background: #D81B60;
+        }
+        
+        .status {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .status.success {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        
+        .status.info {
+            background: #E3F2FD;
+            color: #1565C0;
+        }
+        
+        .integration-demo {
+            border: 2px dashed #E91E63;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Module 4: Integration Example</h1>
+        <p>This demonstrates how the Color Analysis Engine integrates with other Pippa of London modules.</p>
+        
+        <!-- Module Flow Visualization -->
+        <div class="module-flow">
+            <div class="module-box" id="module1">
+                <h3>Module 1</h3>
+                <p>User Auth</p>
+                <span class="arrow">→</span>
+            </div>
+            <div class="module-box" id="module2">
+                <h3>Module 2</h3>
+                <p>Media Capture</p>
+                <span class="arrow">→</span>
+            </div>
+            <div class="module-box active" id="module4">
+                <h3>Module 4</h3>
+                <p>Color Analysis</p>
+                <span class="arrow">→</span>
+            </div>
+            <div class="module-box" id="module5">
+                <h3>Module 5</h3>
+                <p>Results Display</p>
+                <span class="arrow">→</span>
+            </div>
+            <div class="module-box" id="module3">
+                <h3>Module 3</h3>
+                <p>Product DB</p>
+            </div>
+        </div>
+        
+        <!-- Integration Examples -->
+        <h2>1. Receiving Image from Module 2 (Media Capture)</h2>
+        <div class="code-section">
+            <pre><code>// Module 2 sends captured image
+const capturedImage = await capturePhoto(); // From Module 2
+localStorage.setItem('capturedImage', capturedImage);
+
+// Module 4 receives and processes
+const imageToAnalyze = localStorage.getItem('capturedImage');
+const analysisResults = await analyzeImage(imageToAnalyze);</code></pre>
+        </div>
+        
+        <h2>2. Using Product Database from Module 3</h2>
+        <div class="code-section">
+            <pre><code>// Get product catalog from Module 3
+const productDatabase = window.getProductCatalog();
+console.log(`Loaded ${productDatabase.length} products`);
+
+// Use in color matching
+const skinToneData = { 
+    lab: { L: 65.2, a: 12.1, b: 18.5 },
+    undertone: "warm",
+    monkScale: 5
+};
+
+const matches = await window.ColorMatching.findBestMatches(
+    skinToneData, 
+    productDatabase
+);</code></pre>
+        </div>
+        
+        <h2>3. Passing Results to Module 5</h2>
+        <div class="code-section">
+            <pre><code>// After analysis completes
+const analysisResults = {
+    analysisId: "uuid-123",
+    skinTone: { hex: "#B99178", undertone: "warm" },
+    matches: [...topMatches],
+    confidence: 0.85
+};
+
+// Save for Module 5
+localStorage.setItem('latestAnalysisResults', JSON.stringify(analysisResults));
+
+// Navigate to results display
+window.location.href = '/results/results.html';</code></pre>
+        </div>
+        
+        <h2>4. User Authentication Check</h2>
+        <div class="code-section">
+            <pre><code>// Check if user is logged in (Module 1)
+const currentUser = getCurrentUser(); // From Module 1
+
+if (!currentUser) {
+    // Redirect to login
+    window.location.href = '/auth/auth.html';
+    return;
+}
+
+// Proceed with analysis
+const results = await analyzeImage(imageData);
+
+// Save to user's history
+const userHistory = currentUser.analysisHistory || [];
+userHistory.push(results);
+updateUserProfile({ analysisHistory: userHistory });</code></pre>
+        </div>
+        
+        <!-- Live Integration Demo -->
+        <div class="integration-demo">
+            <h2>Live Integration Demo</h2>
+            <p>Click the buttons below to simulate the module integration flow:</p>
+            
+            <div>
+                <button onclick="simulateAuth()">1. Simulate User Login</button>
+                <button onclick="simulateCapture()">2. Simulate Image Capture</button>
+                <button onclick="simulateAnalysis()">3. Run Color Analysis</button>
+                <button onclick="simulateResults()">4. Show Results</button>
+            </div>
+            
+            <div id="demoStatus" class="status info" style="display: none;"></div>
+        </div>
+        
+        <h2>Complete Integration Flow</h2>
+        <div class="code-section">
+            <pre><code>// Complete user journey integration
+async function completeUserJourney() {
+    try {
+        // Step 1: Check authentication (Module 1)
+        const user = await checkUserAuthentication();
+        if (!user) {
+            return redirectToLogin();
+        }
+        
+        // Step 2: Capture or retrieve image (Module 2)
+        const imageData = await getImageFromModule2();
+        
+        // Step 3: Load product database (Module 3)
+        const products = await loadProductCatalog();
+        
+        // Step 4: Run analysis (Module 4)
+        showProgress('Analyzing your skin tone...');
+        const analysisResults = await analyzeImage(imageData);
+        
+        // Step 5: Find product matches (Module 4 + Module 3)
+        const matches = await findBestMatches(
+            analysisResults.skinTone,
+            products
+        );
+        
+        // Step 6: Save results for display (Module 5)
+        await saveAnalysisResults({
+            ...analysisResults,
+            matches: matches.allMatches,
+            userId: user.userId,
+            timestamp: new Date().toISOString()
+        });
+        
+        // Step 7: Navigate to results page (Module 5)
+        window.location.href = '/results/results.html';
+        
+    } catch (error) {
+        console.error('Journey error:', error);
+        handleError(error);
+    }
+}</code></pre>
+        </div>
+        
+        <h2>Event-Based Integration</h2>
+        <div class="code-section">
+            <pre><code>// Module 4 dispatches events for other modules
+window.addEventListener('analysisStarted', (event) => {
+    const { imageId } = event.detail;
+    console.log('Analysis started for image:', imageId);
+    
+    // Module 7 (Integration Layer) could track this
+    trackAnalyticsEvent('analysis_started', { imageId });
+});
+
+window.addEventListener('analysisComplete', (event) => {
+    const { analysisId, skinTone, matches } = event.detail;
+    console.log('Analysis complete:', analysisId);
+    
+    // Module 5 could listen for this
+    updateResultsPreview(event.detail);
+    
+    // Module 7 could update global state
+    updateAppState({ latestAnalysis: event.detail });
+});
+
+window.addEventListener('analysisError', (event) => {
+    const { error, context } = event.detail;
+    console.error('Analysis failed:', error);
+    
+    // Module 7 could handle error reporting
+    reportError(error, context);
+});</code></pre>
+        </div>
+        
+        <h2>API Layer Integration (Module 7)</h2>
+        <div class="code-section">
+            <pre><code>// Module 7 provides unified API for Module 4
+class ModuleAPI {
+    // Initialize color analysis
+    static async initializeAnalysis() {
+        await window.FaceDetection.initializeFaceDetection();
+        return { status: 'ready' };
+    }
+    
+    // Run analysis with error handling
+    static async analyzeUserImage(imageData, options = {}) {
+        try {
+            // Validate user session
+            const user = await this.getUserProfile();
+            if (!user) throw new Error('User not authenticated');
+            
+            // Run analysis
+            const results = await window.analyzeImage(imageData);
+            
+            // Enhance with user preferences
+            if (user.preferences) {
+                results.matches = window.ColorMatching.rankMatches(
+                    results.matches,
+                    user.preferences
+                );
+            }
+            
+            // Save to user history
+            await this.saveAnalysisHistory(user.userId, results);
+            
+            return results;
+            
+        } catch (error) {
+            this.handleError(error);
+            throw error;
+        }
+    }
+}</code></pre>
+        </div>
+    </div>
+    
+    <script>
+        // Demo simulation functions
+        let demoState = {
+            authenticated: false,
+            imageCapture: false,
+            analysisComplete: false
+        };
+        
+        function updateStatus(message, type = 'info') {
+            const status = document.getElementById('demoStatus');
+            status.style.display = 'block';
+            status.className = `status ${type}`;
+            status.textContent = message;
+        }
+        
+        function simulateAuth() {
+            // Simulate Module 1 authentication
+            setTimeout(() => {
+                demoState.authenticated = true;
+                updateStatus('✓ User authenticated successfully', 'success');
+                document.getElementById('module1').classList.add('active');
+            }, 500);
+        }
+        
+        function simulateCapture() {
+            if (!demoState.authenticated) {
+                updateStatus('⚠️ Please authenticate first', 'info');
+                return;
+            }
+            
+            // Simulate Module 2 image capture
+            setTimeout(() => {
+                demoState.imageCaptured = true;
+                updateStatus('✓ Image captured and ready for analysis', 'success');
+                document.getElementById('module2').classList.add('active');
+            }, 500);
+        }
+        
+        function simulateAnalysis() {
+            if (!demoState.imageCaptured) {
+                updateStatus('⚠️ Please capture an image first', 'info');
+                return;
+            }
+            
+            // Simulate Module 4 analysis
+            updateStatus('⏳ Running color analysis...', 'info');
+            
+            setTimeout(() => {
+                demoState.analysisComplete = true;
+                updateStatus('✓ Analysis complete! Skin tone: #B99178, Undertone: Warm, Matches: 15 products', 'success');
+                document.getElementById('module3').classList.add('active');
+            }, 2000);
+        }
+        
+        function simulateResults() {
+            if (!demoState.analysisComplete) {
+                updateStatus('⚠️ Please complete analysis first', 'info');
+                return;
+            }
+            
+            // Simulate Module 5 results display
+            setTimeout(() => {
+                updateStatus('✓ Results displayed! Ready for user review', 'success');
+                document.getElementById('module5').classList.add('active');
+            }, 500);
+        }
+        
+        // Show module interactions
+        console.log('Module 4 Integration Example Loaded');
+        console.log('Available integration points:', {
+            authentication: 'checkUserAuthentication()',
+            imageCapture: 'getImageFromModule2()',
+            productDatabase: 'window.getProductCatalog()',
+            colorAnalysis: 'window.analyzeImage()',
+            resultsDisplay: 'saveAnalysisResults()'
+        });
+    </script>
+</body>
+</html>

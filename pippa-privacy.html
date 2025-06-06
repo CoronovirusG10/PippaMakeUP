@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy Policy for Pippa of London - Learn how we protect your data and respect your privacy.">
+    <title>Privacy Policy - Pippa of London</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/website/global.css">
+    <style>
+        /* Page-specific styles */
+        .legal-hero {
+            background: var(--light-gray);
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+
+        .legal-hero h1 {
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .legal-hero p {
+            font-size: 1.125rem;
+            color: var(--medium-gray);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        /* Legal Content */
+        .legal-content {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .legal-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--light-gray);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 60px;
+        }
+
+        .toc h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--deep-rose);
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 12px;
+        }
+
+        .toc-list a {
+            color: var(--charcoal);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .toc-list a:hover {
+            color: var(--deep-rose);
+            transform: translateX(5px);
+        }
+
+        .toc-list a::before {
+            content: '→';
+            margin-right: 10px;
+            color: var(--primary-gold);
+        }
+
+        /* Legal Sections */
+        .legal-section {
+            margin-bottom: 60px;
+            scroll-margin-top: 100px;
+        }
+
+        .legal-section h2 {
+            font-size: 2rem;
+            margin-bottom: 24px;
+            color: var(--deep-rose);
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        .legal-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-gold);
+        }
+
+        .legal-section h3 {
+            font-size: 1.375rem;
+            margin: 32px 0 16px;
+            color: var(--charcoal);
+        }
+
+        .legal-section p {
+            line-height: 1.8;
+            margin-bottom: 16px;
+            color: var(--charcoal);
+        }
+
+        .legal-section ul,
+        .legal-section ol {
+            margin: 16px 0 24px 20px;
+            line-height: 1.8;
+        }
+
+        .legal-section li {
+            margin-bottom: 8px;
+            color: var(--charcoal);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: var(--soft-pink);
+            padding: 24px;
+            border-radius: 12px;
+            margin: 32px 0;
+            border-left: 4px solid var(--deep-rose);
+        }
+
+        .highlight-box h4 {
+            font-size: 1.125rem;
+            margin-bottom: 12px;
+            color: var(--deep-rose);
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+
+        /* Contact Box */
+        .contact-box {
+            background: var(--light-gray);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .contact-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--deep-rose);
+        }
+
+        .contact-box p {
+            margin-bottom: 24px;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--deep-rose);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-gold);
+            transform: translateY(-5px);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .legal-container {
+                padding: 0 20px;
+            }
+
+            .toc {
+                padding: 20px;
+            }
+
+            .legal-section h2 {
+                font-size: 1.75rem;
+            }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">Pippa of London</a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="/" class="nav-link">Home</a></li>
+                        <li><a href="/how-it-works.html" class="nav-link">How It Works</a></li>
+                        <li><a href="/catalog/products.html" class="nav-link">Products</a></li>
+                        <li><a href="/about.html" class="nav-link">About</a></li>
+                    </ul>
+                    <a href="/auth/auth.html" class="nav-cta">Try Now</a>
+                    <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Legal Hero -->
+    <section class="legal-hero">
+        <div class="container">
+            <h1>Privacy Policy</h1>
+            <p>Last updated: June 6, 2025</p>
+        </div>
+    </section>
+
+    <!-- Legal Content -->
+    <section class="legal-content">
+        <div class="legal-container">
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h2>Table of Contents</h2>
+                <ul class="toc-list">
+                    <li><a href="#introduction">1. Introduction</a></li>
+                    <li><a href="#information-we-collect">2. Information We Collect</a></li>
+                    <li><a href="#how-we-use">3. How We Use Your Information</a></li>
+                    <li><a href="#data-processing">4. AI and Image Processing</a></li>
+                    <li><a href="#data-sharing">5. Information Sharing</a></li>
+                    <li><a href="#data-security">6. Data Security</a></li>
+                    <li><a href="#your-rights">7. Your Rights</a></li>
+                    <li><a href="#cookies">8. Cookies and Tracking</a></li>
+                    <li><a href="#children">9. Children's Privacy</a></li>
+                    <li><a href="#changes">10. Changes to This Policy</a></li>
+                    <li><a href="#contact">11. Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Introduction -->
+            <div class="legal-section" id="introduction">
+                <h2>1. Introduction</h2>
+                <p>Welcome to Pippa of London ("we," "our," or "us"). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our AI-powered color matching service.</p>
+                
+                <div class="highlight-box">
+                    <h4>Our Privacy Promise</h4>
+                    <p>Your photos are processed locally in your browser by default. We don't store or transmit your images unless you explicitly choose to save results to your account.</p>
+                </div>
+
+                <p>By using our service, you consent to the data practices described in this policy. If you do not agree with our policies and practices, please do not use our service.</p>
+            </div>
+
+            <!-- Information We Collect -->
+            <div class="legal-section" id="information-we-collect">
+                <h2>2. Information We Collect</h2>
+                
+                <h3>Information You Provide to Us</h3>
+                <ul>
+                    <li><strong>Account Information:</strong> When you create an account, we collect your name, email address, and password.</li>
+                    <li><strong>Profile Information:</strong> Optional information such as age range, skin concerns, and beauty preferences.</li>
+                    <li><strong>Contact Information:</strong> When you contact us, we collect your name, email, and message content.</li>
+                    <li><strong>Analysis Results:</strong> If you choose to save results, we store your color analysis data and product preferences.</li>
+                </ul>
+
+                <h3>Information Collected Automatically</h3>
+                <ul>
+                    <li><strong>Device Information:</strong> Browser type, operating system, device identifiers.</li>
+                    <li><strong>Usage Data:</strong> Pages visited, features used, time spent on site.</li>
+                    <li><strong>Technical Data:</strong> IP address, browser settings, time zone.</li>
+                </ul>
+
+                <h3>Image Data</h3>
+                <p>When you use our color matching service:</p>
+                <ul>
+                    <li>Images are processed locally in your browser</li>
+                    <li>We extract only color data points, not identifiable features</li>
+                    <li>Original images are not transmitted or stored unless you explicitly save results</li>
+                    <li>Saved results include only anonymized color data and product matches</li>
+                </ul>
+            </div>
+
+            <!-- How We Use Your Information -->
+            <div class="legal-section" id="how-we-use">
+                <h2>3. How We Use Your Information</h2>
+                
+                <p>We use the information we collect to:</p>
+                <ul>
+                    <li><strong>Provide Our Service:</strong> Process color analysis and provide shade recommendations</li>
+                    <li><strong>Improve Accuracy:</strong> Enhance our AI models using anonymized, aggregated data</li>
+                    <li><strong>Personalize Experience:</strong> Remember your preferences and provide tailored recommendations</li>
+                    <li><strong>Communicate:</strong> Send service updates, respond to inquiries, provide customer support</li>
+                    <li><strong>Security:</strong> Detect and prevent fraud, abuse, and technical issues</li>
+                    <li><strong>Legal Compliance:</strong> Comply with legal obligations and enforce our terms</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h4>We Never</h4>
+                    <p>Sell your personal information to third parties or use your photos for any purpose other than color analysis.</p>
+                </div>
+            </div>
+
+            <!-- AI and Image Processing -->
+            <div class="legal-section" id="data-processing">
+                <h2>4. AI and Image Processing</h2>
+                
+                <h3>Local Processing</h3>
+                <p>Our AI technology is designed with privacy in mind:</p>
+                <ul>
+                    <li>Face detection and color analysis happen entirely in your browser</li>
+                    <li>No images are uploaded to our servers during analysis</li>
+                    <li>We use client-side machine learning models</li>
+                    <li>Only numerical color values are extracted, not facial features</li>
+                </ul>
+
+                <h3>Optional Cloud Features</h3>
+                <p>If you choose to use advanced features:</p>
+                <ul>
+                    <li>Saved results are encrypted and associated with your account</li>
+                    <li>Historical analysis data helps improve recommendations</li>
+                    <li>You can delete your saved data at any time</li>
+                </ul>
+
+                <h3>Model Training</h3>
+                <p>To improve our service:</p>
+                <ul>
+                    <li>We use only anonymized, aggregated color data</li>
+                    <li>No individual photos are used for training</li>
+                    <li>Feedback data is anonymized before processing</li>
+                    <li>We follow industry best practices for AI ethics</li>
+                </ul>
+            </div>
+
+            <!-- Information Sharing -->
+            <div class="legal-section" id="data-sharing">
+                <h2>5. Information Sharing</h2>
+                
+                <p>We do not sell, trade, or rent your personal information. We may share information in these limited circumstances:</p>
+
+                <h3>Service Providers</h3>
+                <p>We work with trusted partners who help us operate our service:</p>
+                <ul>
+                    <li>Cloud hosting providers (Microsoft Azure)</li>
+                    <li>Analytics services (anonymized data only)</li>
+                    <li>Customer support tools</li>
+                    <li>Payment processors (if applicable)</li>
+                </ul>
+
+                <h3>Legal Requirements</h3>
+                <p>We may disclose information if required by law or in response to valid legal requests.</p>
+
+                <h3>Business Transfers</h3>
+                <p>In the event of a merger, acquisition, or sale of assets, user information may be transferred with appropriate privacy protections.</p>
+
+                <h3>Aggregated Information</h3>
+                <p>We may share anonymized, aggregated statistics about our service usage that cannot identify individual users.</p>
+            </div>
+
+            <!-- Data Security -->
+            <div class="legal-section" id="data-security">
+                <h2>6. Data Security</h2>
+                
+                <p>We implement appropriate technical and organizational measures to protect your information:</p>
+                <ul>
+                    <li><strong>Encryption:</strong> All data transmissions are encrypted using industry-standard TLS</li>
+                    <li><strong>Access Controls:</strong> Limited access to personal data on a need-to-know basis</li>
+                    <li><strong>Regular Audits:</strong> Security assessments and penetration testing</li>
+                    <li><strong>Incident Response:</strong> Procedures to detect and respond to data breaches</li>
+                    <li><strong>Employee Training:</strong> Regular privacy and security training for our team</li>
+                </ul>
+
+                <p>While we strive to protect your information, no method of transmission over the internet is 100% secure. We cannot guarantee absolute security.</p>
+            </div>
+
+            <!-- Your Rights -->
+            <div class="legal-section" id="your-rights">
+                <h2>7. Your Rights</h2>
+                
+                <p>You have the following rights regarding your personal information:</p>
+
+                <h3>Access and Portability</h3>
+                <p>You can request a copy of your personal data in a portable format.</p>
+
+                <h3>Correction</h3>
+                <p>You can update or correct your information through your account settings or by contacting us.</p>
+
+                <h3>Deletion</h3>
+                <p>You can request deletion of your account and associated data at any time.</p>
+
+                <h3>Restriction</h3>
+                <p>You can ask us to restrict processing of your data in certain circumstances.</p>
+
+                <h3>Objection</h3>
+                <p>You can object to certain types of processing, such as marketing communications.</p>
+
+                <h3>Withdrawal of Consent</h3>
+                <p>Where we rely on consent, you can withdraw it at any time.</p>
+
+                <div class="highlight-box">
+                    <h4>Exercising Your Rights</h4>
+                    <p>To exercise any of these rights, please contact us at privacy@pippaoflondon.com. We will respond within 30 days.</p>
+                </div>
+            </div>
+
+            <!-- Cookies -->
+            <div class="legal-section" id="cookies">
+                <h2>8. Cookies and Tracking</h2>
+                
+                <p>We use cookies and similar tracking technologies to:</p>
+                <ul>
+                    <li>Keep you logged in to your account</li>
+                    <li>Remember your preferences</li>
+                    <li>Understand how you use our service</li>
+                    <li>Improve our website performance</li>
+                </ul>
+
+                <h3>Types of Cookies We Use</h3>
+                <ul>
+                    <li><strong>Essential Cookies:</strong> Required for the website to function properly</li>
+                    <li><strong>Functional Cookies:</strong> Remember your preferences and settings</li>
+                    <li><strong>Analytics Cookies:</strong> Help us understand usage patterns (anonymized)</li>
+                </ul>
+
+                <h3>Managing Cookies</h3>
+                <p>You can control cookies through your browser settings. Note that disabling certain cookies may limit functionality.</p>
+            </div>
+
+            <!-- Children's Privacy -->
+            <div class="legal-section" id="children">
+                <h2>9. Children's Privacy</h2>
+                
+                <p>Our service is not intended for children under 16 years of age. We do not knowingly collect personal information from children under 16. If we become aware that we have collected data from a child under 16, we will take steps to delete that information.</p>
+                
+                <p>If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.</p>
+            </div>
+
+            <!-- Changes to Policy -->
+            <div class="legal-section" id="changes">
+                <h2>10. Changes to This Policy</h2>
+                
+                <p>We may update this Privacy Policy from time to time. We will notify you of any changes by:</p>
+                <ul>
+                    <li>Posting the new Privacy Policy on this page</li>
+                    <li>Updating the "Last updated" date at the top</li>
+                    <li>Sending an email notification for material changes</li>
+                </ul>
+                
+                <p>Your continued use of our service after changes constitutes acceptance of the updated policy.</p>
+            </div>
+
+            <!-- Contact -->
+            <div class="legal-section" id="contact">
+                <h2>11. Contact Us</h2>
+                
+                <p>If you have questions or concerns about this Privacy Policy or our data practices, please contact us:</p>
+                
+                <div class="contact-box">
+                    <h3>Privacy Team</h3>
+                    <p>Pippa of London<br>
+                    Email: privacy@pippaoflondon.com<br>
+                    Address: 123 Beauty Lane, London, UK</p>
+                    <a href="/contact.html" class="btn btn-primary">Contact Form</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Pippa of London</h3>
+                    <p>Revolutionary AI-powered beauty technology for inclusive, accurate shade matching.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                        <a href="#" class="social-link" aria-label="Facebook">👤</a>
+                        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+                        <a href="#" class="social-link" aria-label="YouTube">▶️</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="/how-it-works.html">How It Works</a></li>
+                        <li><a href="/catalog/products.html">Products</a></li>
+                        <li><a href="/about.html">Technology</a></li>
+                        <li><a href="/auth/auth.html">Try Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/contact.html">Help Center</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pippa of London. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" aria-label="Back to top">↑</a>
+
+    <!-- Scripts -->
+    <script src="/website/navigation.js"></script>
+    <script>
+        // Smooth scrolling for table of contents
+        document.querySelectorAll('.toc-list a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Back to top button
+        const backToTop = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pippa of London - Capture Your Beauty</title>
+    <link rel="stylesheet" href="capture.css">
+    <!-- CompressorJS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="capture-header">
+        <button class="back-button" onclick="window.location.href='/'">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <h1>Capture Your Photo</h1>
+        <div class="header-spacer"></div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="capture-main">
+        <!-- Camera View -->
+        <section id="camera-section" class="camera-section active">
+            <div class="camera-container">
+                <video id="camera-preview" autoplay playsinline></video>
+                <canvas id="capture-canvas" style="display: none;"></canvas>
+                
+                <!-- Face Guide Overlay -->
+                <div class="face-guide-overlay">
+                    <div class="face-guide"></div>
+                    <p class="guide-text">Position your face in the oval</p>
+                </div>
+
+                <!-- Lighting Warning -->
+                <div id="lighting-warning" class="lighting-warning hidden">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                    </svg>
+                    <span>Try better lighting for best results</span>
+                </div>
+
+                <!-- Camera Controls -->
+                <div class="camera-controls">
+                    <button id="switch-camera" class="control-button" title="Switch Camera">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/>
+                            <path d="M16.5 12l-1.39-1.42L13.92 12l1.19 1.42L16.5 12zm-9 0l1.39 1.42L10.08 12l-1.19-1.42L7.5 12z" fill="currentColor"/>
+                        </svg>
+                    </button>
+
+                    <button id="capture-photo" class="capture-button">
+                        <div class="capture-button-inner"></div>
+                    </button>
+
+                    <button id="upload-photo" class="control-button" title="Upload Photo">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M19 7v2.99s-1.99.01-2 0V7h-3s.01-1.99 0-2h3V2h2v3h3v2h-3zm-3 4V8h-3V5H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-8h-3z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Video Recording Controls -->
+                <div id="video-controls" class="video-controls hidden">
+                    <div class="recording-timer">00:00</div>
+                    <button id="stop-recording" class="stop-button">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <rect x="6" y="6" width="12" height="12" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <div class="recording-indicator"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section id="upload-section" class="upload-section">
+            <div class="upload-container">
+                <input type="file" id="file-input" multiple accept="image/jpeg,image/png,video/mp4,video/quicktime" style="display: none;">
+                
+                <div id="drop-zone" class="drop-zone">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="#D4A574">
+                        <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                    </svg>
+                    <h3>Drop files here</h3>
+                    <p>or click to browse</p>
+                    <p class="file-types">Supports: JPG, PNG, MP4, MOV</p>
+                    <p class="file-limits">Max: Photos 10MB, Videos 50MB</p>
+                </div>
+
+                <div id="upload-progress" class="upload-progress hidden">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <p class="progress-text">Processing...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview Gallery -->
+        <section id="preview-section" class="preview-section hidden">
+            <h2>Your Captures</h2>
+            <div class="preview-gallery" id="preview-gallery">
+                <!-- Dynamic previews will be inserted here -->
+            </div>
+            <div class="gallery-actions">
+                <button id="add-more" class="secondary-button">Add More</button>
+                <button id="use-selected" class="primary-button" disabled>Use Selected Photo</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Tab Navigation -->
+    <nav class="capture-tabs">
+        <button class="tab-button active" data-tab="camera">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" fill="currentColor"/>
+                <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z" fill="currentColor"/>
+            </svg>
+            <span>Camera</span>
+        </button>
+        <button class="tab-button" data-tab="upload">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" fill="currentColor"/>
+            </svg>
+            <span>Upload</span>
+        </button>
+        <button class="tab-button" data-tab="gallery" id="gallery-tab">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4z" fill="currentColor"/>
+            </svg>
+            <span>Gallery</span>
+            <span id="gallery-count" class="gallery-count hidden">0</span>
+        </button>
+    </nav>
+
+    <!-- Error/Success Messages -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="media-utils.js"></script>
+    <script src="camera.js"></script>
+    <script src="upload.js"></script>
+    <script src="preview.js"></script>
+    <script src="../integration/state-manager.js"></script>
+</body>
+</html>

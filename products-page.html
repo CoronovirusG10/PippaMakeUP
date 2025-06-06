@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Pippa of London</title>
+    <link rel="stylesheet" href="catalog.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <div class="logo">
+                    <h1>Pippa of London</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="products.html" class="active">Products</a></li>
+                    <li><a href="../auth/profile.html">Profile</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="products-main">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h2>Our Products</h2>
+                <p>Discover your perfect shade with our AI-powered color matching</p>
+            </div>
+
+            <!-- Filters Section -->
+            <div class="filters-section">
+                <h3>Filter Products</h3>
+                
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search products..." class="search-input">
+                    <button id="searchBtn" class="search-btn">Search</button>
+                </div>
+
+                <!-- Filter Options -->
+                <div class="filter-grid">
+                    <!-- Category Filter -->
+                    <div class="filter-group">
+                        <label>Category</label>
+                        <div id="categoryFilters" class="checkbox-group">
+                            <label><input type="checkbox" value="foundation" checked> Foundation</label>
+                            <label><input type="checkbox" value="concealer" checked> Concealer</label>
+                            <label><input type="checkbox" value="lipstick" checked> Lipstick</label>
+                            <label><input type="checkbox" value="blush" checked> Blush</label>
+                            <label><input type="checkbox" value="bronzer" checked> Bronzer</label>
+                        </div>
+                    </div>
+
+                    <!-- Undertone Filter -->
+                    <div class="filter-group">
+                        <label>Undertone</label>
+                        <div id="undertoneFilters" class="checkbox-group">
+                            <label><input type="checkbox" value="cool" checked> Cool</label>
+                            <label><input type="checkbox" value="warm" checked> Warm</label>
+                            <label><input type="checkbox" value="neutral" checked> Neutral</label>
+                        </div>
+                    </div>
+
+                    <!-- Skin Type Filter -->
+                    <div class="filter-group">
+                        <label>Skin Type</label>
+                        <div id="skinTypeFilters" class="checkbox-group">
+                            <label><input type="checkbox" value="all" checked> All</label>
+                            <label><input type="checkbox" value="dry" checked> Dry</label>
+                            <label><input type="checkbox" value="oily" checked> Oily</label>
+                            <label><input type="checkbox" value="combination" checked> Combination</label>
+                            <label><input type="checkbox" value="sensitive" checked> Sensitive</label>
+                        </div>
+                    </div>
+
+                    <!-- Price Range -->
+                    <div class="filter-group">
+                        <label>Price Range</label>
+                        <div class="price-range-container">
+                            <input type="range" id="priceRange" min="0" max="100" value="100" class="price-slider">
+                            <div class="price-display">
+                                £0 - £<span id="priceValue">100</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monk Scale Range -->
+                    <div class="filter-group">
+                        <label>Shade Range (Monk Scale)</label>
+                        <div class="shade-range-container">
+                            <input type="range" id="monkMin" min="1" max="10" value="1" class="shade-slider">
+                            <input type="range" id="monkMax" min="1" max="10" value="10" class="shade-slider">
+                            <div class="shade-display">
+                                <span id="monkMinValue">1</span> - <span id="monkMaxValue">10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sort Options -->
+                <div class="sort-container">
+                    <label>Sort by:</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="name">Name</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="popularity">Popularity</option>
+                    </select>
+                </div>
+
+                <button id="resetFilters" class="reset-btn">Reset Filters</button>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-section">
+                <div class="results-info">
+                    <span id="resultsCount">Loading products...</span>
+                </div>
+                <div id="productsGrid" class="products-grid">
+                    <!-- Products will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="loading-indicator hidden">
+                <div class="spinner"></div>
+                <p>Loading products...</p>
+            </div>
+
+            <!-- No Results Message -->
+            <div id="noResults" class="no-results hidden">
+                <p>No products found matching your filters.</p>
+                <button onclick="resetFilters()">Reset Filters</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Pippa of London. AI-powered beauty for everyone.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="product-data.js"></script>
+    <script src="catalog.js"></script>
+    <script src="search.js"></script>
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pippa of London - Color Analysis</title>
+    <link rel="stylesheet" href="analysis.css">
+    
+    <!-- Face-api.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    
+    <!-- Module Scripts -->
+    <script defer src="analysis-utils.js"></script>
+    <script defer src="face-detection.js"></script>
+    <script defer src="color-extraction.js"></script>
+    <script defer src="color-matching.js"></script>
+    
+    <!-- Sample Product Database (in real app, would come from Module 3) -->
+    <script defer src="../test-data/sample-products.js"></script>
+</head>
+<body>
+    <div class="analysis-container">
+        <!-- Header -->
+        <header class="analysis-header">
+            <div class="brand-logo">
+                <h1>Pippa of London</h1>
+                <p class="tagline">AI-Powered Color Analysis</p>
+            </div>
+            <nav class="analysis-nav">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../auth/profile.html" class="nav-link">Profile</a>
+                <a href="../results/results.html" class="nav-link">My Results</a>
+            </nav>
+        </header>
+
+        <!-- Main Analysis Interface -->
+        <main class="analysis-main">
+            <!-- Upload Section -->
+            <section class="upload-section" id="uploadSection">
+                <h2>Analyze Your Skin Tone</h2>
+                <p class="instructions">Upload a clear photo of your face in good lighting</p>
+                
+                <div class="upload-container">
+                    <input type="file" id="imageInput" accept="image/jpeg,image/png" hidden>
+                    <button class="upload-button" id="uploadButton">
+                        <svg class="upload-icon" viewBox="0 0 24 24" width="48" height="48">
+                            <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                        </svg>
+                        <span>Choose Photo</span>
+                    </button>
+                    
+                    <div class="sample-images">
+                        <p>Or try with a sample image:</p>
+                        <div class="sample-grid">
+                            <img src="../test-data/sample1.jpg" alt="Sample 1" class="sample-image" data-sample="1">
+                            <img src="../test-data/sample2.jpg" alt="Sample 2" class="sample-image" data-sample="2">
+                            <img src="../test-data/sample3.jpg" alt="Sample 3" class="sample-image" data-sample="3">
+                            <img src="../test-data/sample4.jpg" alt="Sample 4" class="sample-image" data-sample="4">
+                            <img src="../test-data/sample5.jpg" alt="Sample 5" class="sample-image" data-sample="5">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preview Section -->
+            <section class="preview-section" id="previewSection" style="display: none;">
+                <h2>Image Preview</h2>
+                <div class="preview-container">
+                    <canvas id="previewCanvas"></canvas>
+                    <div class="face-overlay" id="faceOverlay"></div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="secondary-button" id="retakeButton">Choose Different Photo</button>
+                    <button class="primary-button" id="analyzeButton">Analyze Skin Tone</button>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section" id="progressSection" style="display: none;">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text" id="progressText">Initializing...</p>
+                    <div class="progress-percentage" id="progressPercentage">0%</div>
+                </div>
+                
+                <!-- Analysis Steps Visual -->
+                <div class="analysis-steps">
+                    <div class="step" id="step1">
+                        <div class="step-icon">👤</div>
+                        <p>Detecting Face</p>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-icon">🎨</div>
+                        <p>Analyzing Skin Tone</p>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-icon">💄</div>
+                        <p>Finding Matches</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Preview -->
+            <section class="results-preview" id="resultsPreview" style="display: none;">
+                <h2>Analysis Complete!</h2>
+                <div class="results-summary">
+                    <div class="skin-tone-display">
+                        <div class="color-swatch" id="colorSwatch"></div>
+                        <div class="tone-info">
+                            <p class="tone-name" id="toneName"></p>
+                            <p class="undertone" id="undertone"></p>
+                            <p class="confidence" id="confidence"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="matches-preview" id="matchesPreview">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="results-actions">
+                    <button class="primary-button" id="viewFullResults">View Full Results</button>
+                    <button class="secondary-button" id="analyzeAnother">Analyze Another Photo</button>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section class="error-section" id="errorSection" style="display: none;">
+                <div class="error-container">
+                    <div class="error-icon">⚠️</div>
+                    <h3>Analysis Error</h3>
+                    <p class="error-message" id="errorMessage"></p>
+                    <button class="primary-button" id="tryAgainButton">Try Again</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="analysis-footer">
+            <p>&copy; 2025 Pippa of London. All rights reserved.</p>
+            <p class="privacy-note">Your photos are processed locally and never uploaded to our servers.</p>
+        </footer>
+    </div>
+
+    <!-- Mock Mode Toggle (for development) -->
+    <div class="dev-controls" style="display: none;">
+        <label>
+            <input type="checkbox" id="mockMode"> Mock Mode (instant fake results)
+        </label>
+        <button id="showDevConsole">Show Timing</button>
+    </div>
+
+    <!-- Main Analysis Script -->
+    <script>
+        // Main analysis pipeline
+        async function analyzeImage(imageFile) {
+            const utils = window.ColorAnalysisUtils;
+            const startTime = performance.now();
+            
+            try {
+                // 1. Validate and resize image
+                utils.performanceTracker.start('totalAnalysis');
+                window.showProgress('Preparing image...', 5);
+                
+                // Convert data URL to image element
+                const img = new Image();
+                await new Promise((resolve, reject) => {
+                    img.onload = resolve;
+                    img.onerror = reject;
+                    img.src = imageFile;
+                });
+                
+                // Check if using mock mode
+                if (window.mockMode) {
+                    console.log('Using mock analysis mode');
+                    await simulateProgress();
+                    const mockResults = generateMockResults();
+                    utils.performanceTracker.end('totalAnalysis');
+                    return mockResults;
+                }
+                
+                // 2. Face detection
+                const faceDetection = await window.FaceDetection.detectFace(img);
+                if (!faceDetection) throw new Error(utils.errorMessages.NO_FACE);
+                
+                // Validate face detection quality
+                const validation = window.FaceDetection.validateFaceDetection(faceDetection);
+                if (!validation.valid) {
+                    throw new Error(validation.reason);
+                }
+                
+                // 3. Extract skin tone from detected regions
+                const skinToneData = await window.ColorExtraction.extractSkinTone(img, faceDetection);
+                
+                // 4. Assess lighting quality and apply corrections if needed
+                const lightingQuality = utils.assessLightingQuality(img, faceDetection.faceBox);
+                let finalSkinTone = skinToneData;
+                
+                if (lightingQuality.quality < 0.7) {
+                    console.log('Applying color correction for lighting:', lightingQuality.issue);
+                    finalSkinTone = window.ColorExtraction.applyColorCorrection(skinToneData, lightingQuality);
+                }
+                
+                // 5. Find matching products
+                const productDatabase = window.getProductCatalog ? window.getProductCatalog() : null;
+                const matches = await window.ColorMatching.findBestMatches(finalSkinTone, productDatabase);
+                
+                // 6. Generate recommendations
+                const userHistory = getUserAnalysisHistory();
+                const recommendations = window.ColorMatching.generateRecommendations(matches, userHistory);
+                
+                // 7. Calculate overall confidence
+                const confidence = utils.calculateConfidenceScore({
+                    faceConfidence: faceDetection.confidence,
+                    lightingQuality: lightingQuality.quality,
+                    imageQuality: skinToneData.sampleQuality
+                });
+                
+                // Format results
+                const results = {
+                    analysisId: utils.generateId(),
+                    timestamp: utils.formatTimestamp(),
+                    confidence: confidence,
+                    skinTone: finalSkinTone,
+                    faceDetection: {
+                        confidence: faceDetection.confidence,
+                        boundingBox: faceDetection.faceBox
+                    },
+                    matches: matches.allMatches.slice(0, 10), // Top 10 matches
+                    recommendations: recommendations,
+                    processingTime: performance.now() - startTime
+                };
+                
+                // Save to history
+                saveAnalysisResults(results);
+                
+                utils.performanceTracker.end('totalAnalysis');
+                window.showProgress('Analysis complete!', 100);
+                
+                return results;
+                
+            } catch (error) {
+                utils.performanceTracker.end('totalAnalysis');
+                console.error('Analysis pipeline error:', error);
+                throw error;
+            }
+        }
+        
+        // Simulate progress for mock mode
+        async function simulateProgress() {
+            const steps = [
+                { message: 'Detecting face...', progress: 20 },
+                { message: 'Analyzing skin tone...', progress: 50 },
+                { message: 'Finding matches...', progress: 80 }
+            ];
+            
+            for (const step of steps) {
+                window.showProgress(step.message, step.progress);
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
+        
+        // Generate mock results for testing
+        function generateMockResults() {
+            const mockData = window.ColorAnalysisUtils.generateMockAnalysisResults();
+            
+            // Add mock matches
+            const mockMatches = [
+                {
+                    productId: "prod-001",
+                    shadeId: "shade-001-05",
+                    productName: "Flawless Foundation",
+                    shadeName: "Golden Beige",
+                    hexColor: mockData.skinTone.hex,
+                    deltaE: 2.3,
+                    matchScore: 0.89,
+                    category: "foundation",
+                    price: 35.00,
+                    currency: "GBP"
+                },
+                {
+                    productId: "prod-002",
+                    shadeId: "shade-002-04",
+                    productName: "Perfect Concealer",
+                    shadeName: "Medium Warm",
+                    hexColor: "#D4A574",
+                    deltaE: 3.1,
+                    matchScore: 0.82,
+                    category: "concealer",
+                    price: 25.00,
+                    currency: "GBP"
+                },
+                {
+                    productId: "prod-003",
+                    shadeId: "shade-003-07",
+                    productName: "Velvet Lipstick",
+                    shadeName: "Rose Nude",
+                    hexColor: "#C08081",
+                    deltaE: 5.2,
+                    matchScore: 0.75,
+                    category: "lipstick",
+                    price: 22.00,
+                    currency: "GBP"
+                }
+            ];
+            
+            return {
+                ...mockData,
+                matches: mockMatches,
+                recommendations: {
+                    foundation: mockMatches.filter(m => m.category === 'foundation'),
+                    concealer: mockMatches.filter(m => m.category === 'concealer'),
+                    lipstick: mockMatches.filter(m => m.category === 'lipstick')
+                }
+            };
+        }
+        
+        // Get user analysis history
+        function getUserAnalysisHistory() {
+            const history = localStorage.getItem('analysisHistory');
+            return history ? JSON.parse(history) : [];
+        }
+        
+        // Save analysis results
+        function saveAnalysisResults(results) {
+            const history = getUserAnalysisHistory();
+            history.unshift(results);
+            
+            // Keep only last 10 analyses
+            if (history.length > 10) {
+                history.length = 10;
+            }
+            
+            localStorage.setItem('analysisHistory', JSON.stringify(history));
+            localStorage.setItem('latestAnalysisResults', JSON.stringify(results));
+        }
+        
+        // Initialize the analysis module when page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Initializing Color Analysis Module...');
+            
+            // Check for dev mode
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('dev') === 'true') {
+                document.querySelector('.dev-controls').style.display = 'block';
+            }
+            
+            // Initialize face-api.js models
+            try {
+                await window.FaceDetection.initializeFaceDetection();
+                console.log('Face detection models loaded successfully');
+            } catch (error) {
+                console.error('Failed to load face detection models:', error);
+                showError('Failed to initialize. Please refresh the page.');
+            }
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Dispatch ready event
+            window.dispatchEvent(new CustomEvent('analysisModuleReady'));
+        });
+        
+        function setupEventListeners() {
+            // File upload
+            document.getElementById('uploadButton').addEventListener('click', () => {
+                document.getElementById('imageInput').click();
+            });
+            
+            document.getElementById('imageInput').addEventListener('change', handleFileUpload);
+            
+            // Sample images
+            document.querySelectorAll('.sample-image').forEach(img => {
+                img.addEventListener('click', () => handleSampleImage(img.dataset.sample));
+            });
+            
+            // Analysis controls
+            document.getElementById('analyzeButton').addEventListener('click', startAnalysis);
+            document.getElementById('retakeButton').addEventListener('click', resetInterface);
+            document.getElementById('tryAgainButton').addEventListener('click', resetInterface);
+            document.getElementById('analyzeAnother').addEventListener('click', resetInterface);
+            
+            // Results navigation
+            document.getElementById('viewFullResults').addEventListener('click', () => {
+                // Save results to localStorage and navigate
+                const results = window.currentAnalysisResults;
+                if (results) {
+                    localStorage.setItem('latestAnalysisResults', JSON.stringify(results));
+                    window.location.href = '../results/results.html';
+                }
+            });
+            
+            // Dev controls
+            document.getElementById('mockMode')?.addEventListener('change', (e) => {
+                window.mockMode = e.target.checked;
+                console.log('Mock mode:', window.mockMode);
+            });
+            
+            document.getElementById('showDevConsole')?.addEventListener('click', () => {
+                console.log('Performance Metrics:', window.performanceMetrics);
+            });
+        }
+        
+        async function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Validate file
+            if (!['image/jpeg', 'image/png'].includes(file.type)) {
+                showError('Please upload a JPEG or PNG image.');
+                return;
+            }
+            
+            if (file.size > 10 * 1024 * 1024) {
+                showError('Image size must be less than 10MB.');
+                return;
+            }
+            
+            // Process and display image
+            try {
+                const processedImage = await preprocessImage(file);
+                displayImagePreview(processedImage);
+            } catch (error) {
+                showError('Failed to process image. Please try another.');
+            }
+        }
+        
+        async function handleSampleImage(sampleNumber) {
+            // In real app, would load actual sample images
+            console.log('Loading sample image:', sampleNumber);
+            
+            // For prototype, create a mock image
+            const response = await fetch(`../test-data/sample${sampleNumber}.jpg`);
+            const blob = await response.blob();
+            const file = new File([blob], `sample${sampleNumber}.jpg`, { type: 'image/jpeg' });
+            
+            const processedImage = await preprocessImage(file);
+            displayImagePreview(processedImage);
+        }
+        
+        function displayImagePreview(imageData) {
+            const canvas = document.getElementById('previewCanvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                
+                // Store for analysis
+                window.currentImageData = imageData;
+                window.currentImage = img;
+                
+                // Show preview section
+                showSection('previewSection');
+            };
+            
+            img.src = imageData;
+        }
+        
+        async function startAnalysis() {
+            if (!window.currentImageData) {
+                showError('No image selected.');
+                return;
+            }
+            
+            // Show progress section
+            showSection('progressSection');
+            
+            // Dispatch analysis started event
+            const analysisId = crypto.randomUUID();
+            window.dispatchEvent(new CustomEvent('analysisStarted', { 
+                detail: { imageId: analysisId } 
+            }));
+            
+            try {
+                // Perform analysis
+                const results = await analyzeImage(window.currentImageData);
+                
+                // Store results
+                window.currentAnalysisResults = results;
+                
+                // Dispatch completion event
+                window.dispatchEvent(new CustomEvent('analysisComplete', { 
+                    detail: results 
+                }));
+                
+                // Show results preview
+                displayResultsPreview(results);
+                
+            } catch (error) {
+                console.error('Analysis error:', error);
+                
+                // Dispatch error event
+                window.dispatchEvent(new CustomEvent('analysisError', { 
+                    detail: error 
+                }));
+                
+                showError(error.message || 'Analysis failed. Please try again.');
+            }
+        }
+        
+        function displayResultsPreview(results) {
+            // Update color swatch
+            const swatch = document.getElementById('colorSwatch');
+            swatch.style.backgroundColor = results.skinTone.hex;
+            
+            // Update tone info
+            document.getElementById('toneName').textContent = `Monk Scale ${results.skinTone.monkScale}`;
+            document.getElementById('undertone').textContent = `${results.skinTone.undertone} undertone`;
+            document.getElementById('confidence').textContent = `${Math.round(results.confidence * 100)}% confidence`;
+            
+            // Show top matches
+            const matchesContainer = document.getElementById('matchesPreview');
+            matchesContainer.innerHTML = '<h3>Top Matches</h3>';
+            
+            const topMatches = results.matches.slice(0, 3);
+            topMatches.forEach(match => {
+                const matchElement = document.createElement('div');
+                matchElement.className = 'match-item';
+                matchElement.innerHTML = `
+                    <div class="match-color" style="background-color: ${match.hexColor || '#ccc'}"></div>
+                    <div class="match-info">
+                        <p class="match-name">${match.productName}</p>
+                        <p class="match-shade">${match.shadeName}</p>
+                        <p class="match-score">${Math.round(match.matchScore * 100)}% match</p>
+                    </div>
+                `;
+                matchesContainer.appendChild(matchElement);
+            });
+            
+            showSection('resultsPreview');
+        }
+        
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('main > section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show specified section
+            document.getElementById(sectionId).style.display = 'block';
+        }
+        
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            showSection('errorSection');
+        }
+        
+        function resetInterface() {
+            window.currentImageData = null;
+            window.currentImage = null;
+            window.currentAnalysisResults = null;
+            document.getElementById('imageInput').value = '';
+            showSection('uploadSection');
+        }
+        
+        // Progress update function (called from analysis pipeline)
+        window.showProgress = function(message, percentage) {
+            document.getElementById('progressText').textContent = message;
+            document.getElementById('progressPercentage').textContent = `${percentage}%`;
+            document.getElementById('progressFill').style.width = `${percentage}%`;
+            
+            // Update step indicators
+            if (percentage <= 30) {
+                document.getElementById('step1').classList.add('active');
+            } else if (percentage <= 70) {
+                document.getElementById('step2').classList.add('active');
+            } else {
+                document.getElementById('step3').classList.add('active');
+            }
+        };
+        
+        // Performance tracking
+        window.performanceMetrics = {};
+    </script>
+</body>
+</html>

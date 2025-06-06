@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how Pippa of London's AI-powered color matching technology works. From photo capture to personalized shade recommendations.">
+    <title>How It Works - Pippa of London</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/website/global.css">
+    <style>
+        /* Page-specific styles */
+        .page-hero {
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--cream) 100%);
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -30%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--primary-gold) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(10deg); }
+        }
+
+        .page-hero h1 {
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .page-hero p {
+            font-size: 1.25rem;
+            color: var(--medium-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        /* Process Timeline */
+        .process-timeline {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--light-gray);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 80px;
+            animation: fadeIn 0.8s ease-out both;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 40px;
+            background: var(--light-gray);
+            border-radius: 20px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            background: var(--soft-pink);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 60px;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 60px;
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--deep-rose);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            z-index: 1;
+            box-shadow: 0 0 0 8px var(--white);
+        }
+
+        .timeline-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .timeline-content h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--deep-rose);
+        }
+
+        .timeline-content p {
+            line-height: 1.8;
+        }
+
+        /* Technology Deep Dive */
+        .tech-deep-dive {
+            padding: 100px 0;
+            background: var(--cream);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .tech-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--deep-rose), var(--primary-gold));
+        }
+
+        .tech-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .tech-card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--soft-pink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .tech-card h4 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--charcoal);
+        }
+
+        .tech-card p {
+            line-height: 1.8;
+        }
+
+        /* Video Demo Section */
+        .video-demo {
+            padding: 100px 0;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .video-placeholder {
+            max-width: 800px;
+            margin: 60px auto 0;
+            background: var(--light-gray);
+            border-radius: 20px;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .video-placeholder:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: var(--deep-rose);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 36px;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .play-button:hover {
+            background: var(--primary-gold);
+            transform: scale(1.1);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 100px 0;
+            background: var(--light-gray);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .faq-question {
+            padding: 24px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: var(--charcoal);
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            color: var(--deep-rose);
+        }
+
+        .faq-arrow {
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 30px 24px;
+            max-height: 500px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+                text-align: left;
+            }
+
+            .timeline-content {
+                margin: 0 0 0 60px !important;
+                text-align: left !important;
+            }
+
+            .timeline-dot {
+                left: 20px;
+                transform: translateX(-50%);
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">Pippa of London</a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="/" class="nav-link">Home</a></li>
+                        <li><a href="/how-it-works.html" class="nav-link active">How It Works</a></li>
+                        <li><a href="/catalog/products.html" class="nav-link">Products</a></li>
+                        <li><a href="/about.html" class="nav-link">About</a></li>
+                    </ul>
+                    <a href="/auth/auth.html" class="nav-cta">Try Now</a>
+                    <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>How Our AI Color Matching Works</h1>
+            <p>Experience the revolutionary technology that takes the guesswork out of finding your perfect shade</p>
+        </div>
+    </section>
+
+    <!-- Process Timeline -->
+    <section class="process-timeline">
+        <div class="container">
+            <div class="section-header text-center mb-xl">
+                <h2>Your Journey to Perfect Color Matching</h2>
+                <p>Simple, accurate, and personalized just for you</p>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-icon">📸</span>
+                        <h3>Step 1: Capture Your Image</h3>
+                        <p>Take a selfie or upload a photo in natural lighting. Our smart camera guide helps you capture the perfect shot with optimal lighting conditions for accurate analysis.</p>
+                    </div>
+                    <div class="timeline-dot">1</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-icon">🔍</span>
+                        <h3>Step 2: AI Face Detection</h3>
+                        <p>Our advanced AI instantly detects your face and identifies key areas for color sampling, focusing on your cheeks and forehead for the most accurate skin tone reading.</p>
+                    </div>
+                    <div class="timeline-dot">2</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-icon">🎨</span>
+                        <h3>Step 3: Skin Tone Analysis</h3>
+                        <p>Using the Monk Skin Tone Scale and advanced color science, we analyze your unique skin tone and identify your undertones (cool, warm, or neutral) with professional-grade accuracy.</p>
+                    </div>
+                    <div class="timeline-dot">3</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-icon">💡</span>
+                        <h3>Step 4: Smart Matching</h3>
+                        <p>Our algorithm compares your skin analysis against thousands of product shades, using Delta E color matching to find your perfect matches with scientific precision.</p>
+                    </div>
+                    <div class="timeline-dot">4</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-icon">💄</span>
+                        <h3>Step 5: Personalized Results</h3>
+                        <p>Receive your curated shade recommendations across all product categories - foundation, concealer, lipstick, and more - all perfectly matched to your unique skin tone.</p>
+                    </div>
+                    <div class="timeline-dot">5</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Deep Dive -->
+    <section class="tech-deep-dive">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>The Technology Behind the Magic</h2>
+                <p>Cutting-edge AI meets inclusive beauty science</p>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-card-icon">🌈</div>
+                    <h4>Monk Skin Tone Scale</h4>
+                    <p>We use Google's inclusive 10-point skin tone scale, designed to accurately represent all skin tones. This ensures our technology works beautifully for everyone, regardless of ethnicity or skin color.</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-card-icon">🎯</div>
+                    <h4>Delta E Color Matching</h4>
+                    <p>Our professional-grade color matching uses the Delta E algorithm - the same technology used in high-end color calibration - to ensure matches are accurate to within 3 units of perceptible difference.</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-card-icon">🧬</div>
+                    <h4>Undertone Detection</h4>
+                    <p>Advanced spectral analysis identifies whether you have cool, warm, or neutral undertones by analyzing the subtle color variations in your skin that are invisible to the naked eye.</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-card-icon">📊</div>
+                    <h4>Machine Learning Models</h4>
+                    <p>Our AI models are trained on diverse datasets representing all skin tones and types, continuously improving accuracy through anonymous, aggregated user feedback.</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-card-icon">🔒</div>
+                    <h4>Privacy-First Design</h4>
+                    <p>All analysis happens in your browser - your photos never leave your device unless you explicitly choose to save results. We prioritize your privacy at every step.</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-card-icon">⚡</div>
+                    <h4>Real-Time Processing</h4>
+                    <p>Get your results in seconds, not minutes. Our optimized algorithms deliver professional-grade analysis instantly, right in your web browser.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Demo -->
+    <section class="video-demo">
+        <div class="container">
+            <h2>See It In Action</h2>
+            <p class="mt-md mb-xl">Watch how easy it is to find your perfect shade</p>
+            
+            <div class="video-placeholder" onclick="playDemo()">
+                <img src="https://images.unsplash.com/photo-1607748851687-695b5e8c1eb1?w=800&h=450&fit=crop" alt="Video demo thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="play-button" style="position: absolute;">▶</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header text-center mb-xl">
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about our color matching technology</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How accurate is the color matching?</span>
+                        <span class="faq-arrow">⌄</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our technology achieves professional-grade accuracy with a Delta E value of less than 3, which means the color difference is barely perceptible to the human eye. We've tested across 50+ diverse skin tones with consistently accurate results.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What lighting conditions work best?</span>
+                        <span class="faq-arrow">⌄</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Natural daylight provides the best results. Take your photo near a window with indirect sunlight, avoiding harsh shadows or direct sun. Our AI can compensate for various lighting conditions, but natural light ensures optimal accuracy.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Is my photo data secure?</span>
+                        <span class="faq-arrow">⌄</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. All image processing happens directly in your browser - your photos never leave your device unless you explicitly choose to save results to your account. We're committed to privacy-first design and never store or share your personal images.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Does it work for all skin tones?</span>
+                        <span class="faq-arrow">⌄</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We use the Monk Skin Tone Scale specifically designed for inclusive representation. Our AI is trained on diverse datasets representing all skin tones, from the fairest to the deepest, ensuring accurate matches for everyone.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Can I save and share my results?</span>
+                        <span class="faq-arrow">⌄</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, when you create a free account, you can save your color analysis results, build a favorites list, and even share your matches with friends. You'll also get personalized recommendations based on your saved preferences.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" style="background: linear-gradient(135deg, var(--deep-rose), var(--primary-gold));">
+        <div class="container">
+            <h2>Ready to Find Your Perfect Match?</h2>
+            <p>Join thousands who've discovered their ideal shades with AI precision</p>
+            <button class="btn btn-primary" onclick="window.navigationAPI.startAnalysis()">Start Your Analysis</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Pippa of London</h3>
+                    <p>Revolutionary AI-powered beauty technology for inclusive, accurate shade matching.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                        <a href="#" class="social-link" aria-label="Facebook">👤</a>
+                        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+                        <a href="#" class="social-link" aria-label="YouTube">▶️</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="/how-it-works.html">How It Works</a></li>
+                        <li><a href="/catalog/products.html">Products</a></li>
+                        <li><a href="/about.html">Technology</a></li>
+                        <li><a href="/auth/auth.html">Try Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/contact.html">Help Center</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pippa of London. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/website/navigation.js"></script>
+    <script>
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const allItems = document.querySelectorAll('.faq-item');
+            
+            // Close all other items
+            allItems.forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // Toggle current item
+            faqItem.classList.toggle('active');
+        }
+
+        // Play Demo (placeholder)
+        function playDemo() {
+            alert('Video demo would play here. In production, this would open a video modal or embed.');
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = `${entry.target.dataset.delay || 0}s`;
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe timeline items with staggered animation
+        document.querySelectorAll('.timeline-item').forEach((item, index) => {
+            item.dataset.delay = index * 0.2;
+            observer.observe(item);
+        });
+
+        // Observe tech cards
+        document.querySelectorAll('.tech-card').forEach((card, index) => {
+            card.dataset.delay = index * 0.1;
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
