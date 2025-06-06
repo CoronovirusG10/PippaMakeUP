@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pippa of London Prototype</title>
+    <link rel="stylesheet" href="../pippa-global-css.css">
+    <style>
+        body {margin:0;font-family:Arial, Helvetica, sans-serif;}
+        nav {background:#fff;border-bottom:1px solid #eee;padding:10px 20px;display:flex;gap:1rem;}
+        nav a {text-decoration:none;color:#e91e63;}
+        #app {padding:1rem;}
+        .toast {position:fixed;bottom:1rem;right:1rem;background:#333;color:#fff;padding:.5rem 1rem;border-radius:4px;opacity:0.9;}
+        .toast.error{background:#d32f2f;}
+        .toast.warning{background:#ffa000;}
+        .toast.info{background:#1976d2;}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" data-route="/">Home</a>
+        <a href="/auth" data-route="/auth">Sign In</a>
+        <a href="/capture" data-route="/capture">Capture</a>
+        <a href="/analyze" data-route="/analyze">Analyze</a>
+        <a href="/results" data-route="/results">Results</a>
+        <a href="/products" data-route="/products">Products</a>
+        <a href="/profile" data-route="/profile">Profile</a>
+        <a href="/about" data-route="/about">About</a>
+    </nav>
+    <div id="app">Loading...</div>
+
+    <script type="module" src="state-manager.js"></script>
+    <script type="module" src="event-handler.js"></script>
+    <script type="module" src="error-handler.js"></script>
+    <script type="module" src="performance.js"></script>
+    <script type="module" src="module-api.js"></script>
+    <script type="module" src="router.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
