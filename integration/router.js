@@ -21,9 +21,40 @@ function loadPage(path) {
         .then(html => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
-            const content = doc.body.innerHTML;
+
+            // Inject styles
+            const styles = doc.querySelectorAll('link[rel="stylesheet"]');
+            styles.forEach(link => {
+                const href = link.getAttribute('href');
+                if (!document.querySelector(`link[data-dynamic="${href}"]`)) {
+                    const styleEl = document.createElement('link');
+                    styleEl.rel = 'stylesheet';
+                    styleEl.href = href;
+                    styleEl.dataset.dynamic = href;
+                    document.head.appendChild(styleEl);
+                }
+            });
+
             const container = document.getElementById('app');
-            container.innerHTML = content;
+            container.innerHTML = doc.body.innerHTML;
+
+            // Inject scripts so they execute
+            const scripts = doc.querySelectorAll('script');
+            scripts.forEach(srcScript => {
+                const src = srcScript.getAttribute('src');
+                if (src && document.querySelector(`script[data-dynamic="${src}"]`)) {
+                    return; // avoid duplicates
+                }
+                const script = document.createElement('script');
+                if (src) {
+                    script.src = src;
+                    script.defer = srcScript.defer;
+                    script.dataset.dynamic = src;
+                }
+                script.textContent = srcScript.textContent;
+                document.body.appendChild(script);
+            });
+
             eventBus.emit('pageLoaded', path);
         })
         .catch(err => {
