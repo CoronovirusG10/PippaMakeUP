@@ -174,7 +174,7 @@ The platform consists of 7 integrated modules working together to deliver a seam
 - Module loading strategy and deployment preparation
 - Analytics and monitoring for user journey tracking
 
-**Key Files**: `state-manager-js.js`, `integration-example.html`
+**Key Files**: `integration/index.html`, `integration/app.js`, `integration/state-manager.js`, `integration/router.js`
 
 ## 🚀 Quick Start
 
@@ -210,10 +210,10 @@ http://localhost:8000
 
 ### Demo Pages
 
-- **🏠 Homepage**: `pippa-homepage.html` - Full brand experience
-- **🔬 Analysis Demo**: `test-page.html` - Complete working color analysis
+- **🏠 Integrated Prototype**: `integration/index.html` - Complete user journey
+- **🔬 Standalone Analysis Demo**: `test-page.html` - Working color analysis
 - **📱 Mobile Interface**: `analyzer-html.html` - Production-ready analysis UI
-- **🔗 Integration Example**: `integration-example.html` - Module communication demo
+- **🏠 Static Homepage**: `pippa-homepage.html` - Marketing site
 
 ### Developer Mode
 Add `?dev=true` to any page URL for:
